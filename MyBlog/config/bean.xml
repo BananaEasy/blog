@@ -32,7 +32,12 @@
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="configLocation" value="classpath:mybatis.xml"></property>
-		<property name="mapperLocations" value="classpath:com/blog/test/dao/*.xml"></property>
+		<property name="mapperLocations" >
+			 <list>
+                <value>classpath*:com/hang/blog/mvc/entity/*.xml</value>
+                <value>classpath:com/blog/test/dao/*.xml</value>
+            </list>
+		</property>
 	</bean>                                                      
 	
 	<!-- 3. 事务相关配置 -->
@@ -62,13 +67,14 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSsessionFactory"></constructor-arg>
 	</bean>
 	
+	<!-- 注解扫描 -->
 	<context:component-scan base-package="com.blog.test">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 		
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactoryBeanName" value="sqlSsessionFactory"></property>
-		<property name="basePackage" value="com.blog.test.dao"></property>
+		<property name="basePackage" value="com.blog.test.dao;com.hang.blog.mvc.dao"></property>
 	</bean>
 	
 </beans>
