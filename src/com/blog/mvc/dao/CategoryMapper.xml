@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mvc.dao.CategoryMapper">
+  <resultMap id="BaseResultMap" type="com.blog.mvc.entity.Category">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="RANK_" jdbcType="INTEGER" property="rank" />
+    <result column="LINK_" jdbcType="VARCHAR" property="link" />
+    <result column="NAME_" jdbcType="VARCHAR" property="name" />
+    <result column="PARENTID_" jdbcType="INTEGER" property="parentid" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="VERSION_" jdbcType="INTEGER" property="version" />
+    <result column="ICO_" jdbcType="VARCHAR" property="ico" />
+    <result column="RECORD_" jdbcType="VARCHAR" property="record" />
+    <result column="TITLE_" jdbcType="VARCHAR" property="title" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, RANK_, LINK_, NAME_, PARENTID_, CREATETIME, VERSION_, ICO_, RECORD_, TITLE_
+  </sql>
+  <select id="selectByExample" parameterType="com.blog.mvc.entity.CategoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from category_
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from category_
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from category_
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.blog.mvc.entity.CategoryExample">
+    delete from category_
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.blog.mvc.entity.Category">
+    insert into category_ (ID, RANK_, LINK_, 
+      NAME_, PARENTID_, CREATETIME, 
+      VERSION_, ICO_, RECORD_, 
+      TITLE_)
+    values (#{id,jdbcType=INTEGER}, #{rank,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=INTEGER}, #{ico,jdbcType=VARCHAR}, #{record,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.mvc.entity.Category">
+    insert into category_
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="rank != null">
+        RANK_,
+      </if>
+      <if test="link != null">
+        LINK_,
+      </if>
+      <if test="name != null">
+        NAME_,
+      </if>
+      <if test="parentid != null">
+        PARENTID_,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="version != null">
+        VERSION_,
+      </if>
+      <if test="ico != null">
+        ICO_,
+      </if>
+      <if test="record != null">
+        RECORD_,
+      </if>
+      <if test="title != null">
+        TITLE_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="link != null">
+        #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="ico != null">
+        #{ico,jdbcType=VARCHAR},
+      </if>
+      <if test="record != null">
+        #{record,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.blog.mvc.entity.CategoryExample" resultType="java.lang.Long">
+    select count(*) from category_
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update category_
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.rank != null">
+        RANK_ = #{record.rank,jdbcType=INTEGER},
+      </if>
+      <if test="record.link != null">
+        LINK_ = #{record.link,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        NAME_ = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null">
+        PARENTID_ = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null">
+        CREATETIME = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null">
+        VERSION_ = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.ico != null">
+        ICO_ = #{record.ico,jdbcType=VARCHAR},
+      </if>
+      <if test="record.record != null">
+        RECORD_ = #{record.record,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        TITLE_ = #{record.title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update category_
+    set ID = #{record.id,jdbcType=INTEGER},
+      RANK_ = #{record.rank,jdbcType=INTEGER},
+      LINK_ = #{record.link,jdbcType=VARCHAR},
+      NAME_ = #{record.name,jdbcType=VARCHAR},
+      PARENTID_ = #{record.parentid,jdbcType=INTEGER},
+      CREATETIME = #{record.createtime,jdbcType=TIMESTAMP},
+      VERSION_ = #{record.version,jdbcType=INTEGER},
+      ICO_ = #{record.ico,jdbcType=VARCHAR},
+      RECORD_ = #{record.record,jdbcType=VARCHAR},
+      TITLE_ = #{record.title,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.mvc.entity.Category">
+    update category_
+    <set>
+      <if test="rank != null">
+        RANK_ = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="link != null">
+        LINK_ = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        PARENTID_ = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        VERSION_ = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="ico != null">
+        ICO_ = #{ico,jdbcType=VARCHAR},
+      </if>
+      <if test="record != null">
+        RECORD_ = #{record,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        TITLE_ = #{title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.mvc.entity.Category">
+    update category_
+    set RANK_ = #{rank,jdbcType=INTEGER},
+      LINK_ = #{link,jdbcType=VARCHAR},
+      NAME_ = #{name,jdbcType=VARCHAR},
+      PARENTID_ = #{parentid,jdbcType=INTEGER},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      VERSION_ = #{version,jdbcType=INTEGER},
+      ICO_ = #{ico,jdbcType=VARCHAR},
+      RECORD_ = #{record,jdbcType=VARCHAR},
+      TITLE_ = #{title,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
