@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.blog.model.ArticleMonths;
+import com.blog.model.Condition;
 import com.blog.mvc.entity.Article;
 
 public interface IArticleService extends IArticleManagerService {
@@ -62,5 +63,8 @@ public interface IArticleService extends IArticleManagerService {
 	  * @return
 	  */
 	 List<ArticleMonths> groupByMonth();
+
+
+	List<Article> getItem(Condition condition);
 	
 }

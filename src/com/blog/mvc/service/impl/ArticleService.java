@@ -1,9 +1,16 @@
 package com.blog.mvc.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.blog.model.Condition;
+import com.blog.mvc.utils.DateUtil;
+import com.blog.mvc.utils.DateUtil2;
+import com.blog.thread.QuartzHandleCache;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Service;
 
 import com.blog.model.ArticleMonths;
@@ -62,6 +69,8 @@ public class ArticleService extends ArticleManagerService implements
 		if(article == null || 1 != article.getIslock()){
 			throw new NotFondException("文章ID : " + id);
 		}
+		//提交任务给定时器
+		QuartzHandleCache.addArticleId(id);
 		loadCategory(article);
 		loadLabel(article);
 		ac.put("pre", getPreArticle(id));
@@ -95,7 +104,7 @@ public class ArticleService extends ArticleManagerService implements
 	}
 
 	@Override
-	public List<Article> getByLately() {
+		public List<Article> getByLately() {
 		PageHelper.startPage(1, 5);
 		ArticleExample articleExample = new ArticleExample();
 		//只取未锁定的内容
@@ -105,8 +114,56 @@ public class ArticleService extends ArticleManagerService implements
 		articleExample.setOrderByClause(oderBy);
 		return articleMapper.selectTitle(articleExample);
 	}
+
+
 	@Override
 	public List<ArticleMonths> groupByMonth(){
 		return articleMapper.groupByMonth();
+	}
+
+
+	@Override
+	public List<Article> getItem(Condition condition) {
+		if(condition == null){
+			return getIndexItem();
+		}
+
+		ArticleExample articleExample = new ArticleExample();
+		ArticleExample.Criteria criteria = articleExample.createCriteria();
+
+		//类别
+		if(	null != condition.getCid() ){
+			criteria.andCategoryIdEqualTo(condition.getCid());
+		}
+		//标签
+		if(	null != condition.getLid() ){
+			criteria.andLabelIdEqualTo(condition.getLid());
+		}
+		//搜索
+		if( StringUtils.isNotBlank( condition.getSearch() ) ){
+			criteria.andArticletitleLike("%" + condition.getSearch() + "%");
+		}
+		//时间
+		if(StringUtils.isNotBlank( condition.getDate())){
+			try {
+				if(DateUtil.isDate(condition.getDate()) ){
+					Date date = DateUtil.StringToDate(condition.getDate());
+					Date startDate = DateUtil2.getFirstDayOfMonth(date);
+					Date endDate = DateUtil2.getLastDayOfMonth(date);
+					criteria.andCreatetimeBetween(startDate,endDate);
+				}
+
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+
+		articleExample.setOrderByClause(defaultOrderBy);
+		List<Article> list = articleMapper.selectItem(articleExample);
+		for(int i=0;i<list.size();i++){
+			loadCategory(list.get(i));
+			loadLabel(list.get(i));
+		}
+		return list;
 	}
 }

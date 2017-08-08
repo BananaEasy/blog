@@ -1,9 +1,16 @@
 package com.blog.mvc.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.blog.model.Condition;
+import com.blog.model.LoginUser;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -58,9 +65,24 @@ public class MainController extends BaseController{
 		PageHelper.startPage(p == null? 1 : p, Constant.ARTICLE_ITEM_LENGTH);
 		List<Article> indexItem = articleService.getIndexItem();
 		model.addAttribute("articleList", indexItem);
-		model.addAttribute("pageInfo", new Page<Article>(indexItem));
+		model.addAttribute("pageInfo", new Page<>(indexItem));
 		return "blog/articleList.ftl";
 	}
+
+	/**
+	 * 按条件显示
+	 * @param model
+	 * @param condition
+	 * @return
+	 */
+	@RequestMapping(value="/item.action")
+	public String item(Model model,Condition condition) {
+		List<Article> indexItem = articleService.getItem(condition);
+		model.addAttribute("articleList", indexItem);
+		return "blog/articleList.ftl";
+	}
+
+
 	
 	/**
 	 * 留言板
@@ -90,7 +112,8 @@ public class MainController extends BaseController{
 	/**
 	 * 评论
 	 * @param model
-	 * @param id
+	 * @param comment
+	 * @param user
 	 * @return
 	 */
 	@RequestMapping(value="/comment.action" ,method={RequestMethod.GET})
@@ -116,6 +139,26 @@ public class MainController extends BaseController{
 		model.addAttribute("article", articleService.show(id));
 		return RenderJson.Instance();
 	}
-	
+
+
+	/**
+	 * 登陆
+	 */
+	@RequestMapping(value="/loginAdmin.action" )
+	public void login(HttpServletRequest request, HttpServletResponse response, String name, String password) throws IOException{
+
+
+		if(!(StringUtils.isBlank(name) || StringUtils.isBlank(password))){
+
+			LoginUser loginUser = new LoginUser(name,password);
+
+			log.info("登陆User:" + loginUser);
+			if(Constant.users.contains(loginUser)){
+				request.getSession().setAttribute("userLogin",loginUser);
+			}
+		}
+		response.sendRedirect("/admin/index.action");
+	}
+
 	
 }

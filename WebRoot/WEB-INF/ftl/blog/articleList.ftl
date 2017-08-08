@@ -9,8 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>小航博客-主页</title>
 <!-- Bootstrap -->
-<link href="ref/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<link href="ref/css/style.css" rel="stylesheet">
+<link href="/ref/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="/ref/css/style.css" rel="stylesheet">
 </head>
 <body>
 <#include "common/banner.ftl">
@@ -25,7 +25,7 @@
 						<div class="blog-article-head">
 							<div class="blog-article-head-title">
 								<h1>
-									<a href="#">${articleModel.articletitle !"未知"}</a>
+									<a href="/${articleModel.id !""}.html">${articleModel.articletitle !"未知"}</a>
 								</h1>
 							</div>
 							<div class="blog-article-head-meta">
@@ -41,7 +41,7 @@
 						<div class="blog-article-content">
 							<#if articleModel.articletitleimagepath1 ?? >
 								<div class="blog-article-content-img">
-									<a href="##"> <img alt="" src="${articleModel.articletitleimagepath1}" />
+									<a href="/${articleModel.id !""}.html"> <img alt="" src="${articleModel.articletitleimagepath1}" />
 									</a>
 								</div>
 							</#if>
@@ -49,14 +49,14 @@
 								<p>${articleModel.articleprompt!""}</p>
 							</div>
 							<div class="blog-article-content-show">
-								<a type="button" class=" btn-primary btn-lg" href="##">阅读全文</a>
+								<a type="button" class=" btn-primary btn-lg" href="/${articleModel.id !""}.html">阅读全文</a>
 							</div>
 							<hr />
 							<div class="blog-article-head-meta">
 								<table>
 									<tr>
-										<td>标签:<a href="#">${articleModel.lable.name!"未知"}</a></td>
-										<td>分类:<a href="#">${articleModel.category.name!"未知"}</a></td>
+										<td>标签:<a href="/c/lid/${articleModel.lable.id!""}.html">${articleModel.lable.name!"未知"}</a></td>
+										<td>分类:<a href="/c/cid/${articleModel.category.id!""}.html">${articleModel.category.name!"未知"}</a></td>
 										<td>文章来源:<a href="${articleModel.articlehref!"javascript:;"}">${articleModel.articlehreftitle!""}</a></td>
 									</tr>
 								</table>
@@ -64,6 +64,7 @@
 						</div>
 					</article>
 			      </#list>
+					<#if ( pageInfo ??) >
 					<div class="blog-content-page">
 						<div class="btn-group btn-group-lg" role="group">
 							<#if (pageInfo.hasPreviousPage) ><a type="button" class="btn btn-default" href="${pageInfo.prePage}"><strong>上一页</strong></a></#if>
@@ -71,6 +72,7 @@
 							<#if (pageInfo.hasNextPage)><a type="button" class="btn btn-default" href="${pageInfo.nextPage}" ><strong>下一页</strong></a></#if>
 						</div>
 					</div>
+					</#if>
 			<#else>	
 					<p style="color:red;text-align: center;font-size:30px">没有数据</p>
 			</#if>
@@ -82,6 +84,6 @@
 	</div>
 	<#include "common/footer.ftl"/>
 </body>
-<script src="ref/jquery/jquery-2.1.3.min.js"></script>
-<script src="ref/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="/ref/jquery/jquery-2.1.3.min.js"></script>
+<script src="/ref/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 </html>

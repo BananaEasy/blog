@@ -11,18 +11,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>小航博客-留言板</title>
 <!-- Bootstrap -->
-<link href="ref/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<link href="ref/css/style.css" rel="stylesheet">
+<link href="/ref/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="/ref/css/style.css" rel="stylesheet">
 
 <!-- emoji css -->
-<link rel="stylesheet" href="ref/jquery-emoji/dist/css/jquery.emoji.css" />
+<link rel="stylesheet" href="/ref/jquery-emoji/dist/css/jquery.emoji.css" />
 <link rel="stylesheet"
-	href="ref/jquery-emoji/lib/css/jquery.mCustomScrollbar.min.css" />
+	href="/ref/jquery-emoji/lib/css/jquery.mCustomScrollbar.min.css" />
 <!-- emoji end -->
 
 <!-- comment css-->
-<link rel="stylesheet" href="ref/jquerywbpl/css/style.css">
-<link rel="stylesheet" href="ref/jquerywbpl/css/comment.css">
+<link rel="stylesheet" href="/ref/jquerywbpl/css/style.css">
+<link rel="stylesheet" href="/ref/jquerywbpl/css/comment.css">
 <!-- comment css end -->
 </head>
 <body>
@@ -86,18 +86,18 @@
 	<#include "common/footer.ftl"/>
 </body>
 
-<script src="ref/jquery/jquery-2.1.3.min.js"></script>
+<script src="/ref/jquery/jquery-2.1.3.min.js"></script>
 
-<script src="ref/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="/ref/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 <!-- emoji js  -->
 <!--(Optional) the js for jquery.mCustomScrollbar's addon-->
-<script src="ref/jquery-emoji/lib/script/jquery.mousewheel-3.0.6.min.js"></script>
+<script src="/ref/jquery-emoji/lib/script/jquery.mousewheel-3.0.6.min.js"></script>
 <!--the js for jquery.mCustomScrollbar-->
-<script src="ref/jquery-emoji/lib/script/jquery.mCustomScrollbar.min.js"></script>
+<script src="/ref/jquery-emoji/lib/script/jquery.mCustomScrollbar.min.js"></script>
 <!--the js for this plugin-->
-<script src="ref/jquery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/ref/jquery-emoji/dist/js/jquery.emoji.min.js"></script>
 <!-- emoji js end -->
-<script src="ref/js/message.js"></script>
+<script src="/ref/js/message.js"></script>
 
 <script type="text/javascript">
 	_MessageJs.loademoji("#content")

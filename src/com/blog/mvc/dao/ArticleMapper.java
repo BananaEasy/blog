@@ -75,4 +75,11 @@ public interface ArticleMapper extends BaseMapper<Article>{
 	
 	
 	List<ArticleMonths> groupByMonth();
+
+    /**
+     * 访问次数增加
+     * @param id
+     * @return
+     */
+    int addArticleCount(Integer id);
 }

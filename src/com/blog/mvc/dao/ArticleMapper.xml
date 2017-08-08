@@ -471,6 +471,12 @@
 	 set a.TOP_ = b.TOP_ 
 	 WHERE ID = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- 增加访问次数 -->
+  <update id="addArticleCount" parameterType="java.lang.Integer">
+    UPDate article_ set COUNT_ = COUNT_ + 1
+    WHERE ID = #{id,jdbcType=INTEGER}
+  </update>
   
   
   <select id="selectItem" parameterType="com.blog.mvc.entity.ArticleExample" resultMap="BaseResultMap">
@@ -546,7 +552,7 @@
   <select id="groupByMonth" parameterType="java.lang.Integer" resultMap="monthResultMap" >
      <![CDATA[
   	 SELECT
-	DATE_FORMAT(CREATETIME, '%Y年%m月') months,
+	DATE_FORMAT(CREATETIME, '%Y-%m') months,
 	count(id) count
 	FROM
 		article_

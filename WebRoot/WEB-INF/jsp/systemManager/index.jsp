@@ -3,6 +3,7 @@
 	<div class="manager-index-btns">
 		<a  href="javascript:_systemManager_Js.addCategory();" class="easyui-linkbutton" style="width: 100px;">添加</a>
 		<a  href="javascript:_systemManager_Js.saveCategory();" class="easyui-linkbutton" style="width: 100px;">保存</a>
+		<a  href="/admin/systemManager/refresh.action" target="_blank" class="easyui-linkbutton" style="width: 100px;">刷新缓存</a>
 	</div>
 	<div class="manager-index-table">
 		<table id="categoryTree"></table>  
@@ -40,21 +41,26 @@ _systemManager_Js = {
 		},
 		lastEditIndex : null,
 		categoryTreeLoad : function(){
-			var _columns =[[    
-				        {field:'name',title:'类别名称',width:200, editor:'text'},    
-				      /*   {field:'id',title:'ID',width:80},    */ 
-				        {field:'link',title:'类别链接',width:200, editor:'text'},    
-				        {field:'rank',title:'类别等级',width:80, editor:'text'},    
-				       /*  {field:'parentid',title:'父类别',width:100, editor:'text'},   */  
-				        {field:'createtime',title:'创建时间',width:150},    
-				        {field:'ico',title:'类别小图标',width:100, editor:'text'},    
-				        {field:'record',title:'备注',width:200, editor:'text'},    
-				        {field:'title',title:'提示',width:150, editor:'text'},
-				        {field:'version',title:'修改次数',width:150},
-				        {field:'operation',title:'操作',width:150,formatter: function(value,row,index){
+			var _columns =[[
+						{field:'id',title:'ID',width:80},
+						{field:'name',title:'类别名称',width:200, editor:'text'},
+						{field:'link',title:'类别链接',width:200, editor:'text',formatter: function(value,row,index){
+							if(row.link.indexOf("javascript") != -1){
+								return row.link;
+							}
+							return "/c/cid/" + row.id + ".html";
+						}},
+						{field:'rank',title:'类别等级',width:80, editor:'text'},
+					   /*  {field:'parentid',title:'父类别',width:100, editor:'text'},   */
+						{field:'createtime',title:'创建时间',width:150},
+						{field:'ico',title:'类别小图标',width:100, editor:'text'},
+						{field:'record',title:'备注',width:200, editor:'text'},
+						{field:'title',title:'提示',width:150, editor:'text'},
+						{field:'version',title:'修改次数',width:150},
+						{field:'operation',title:'操作',width:150,formatter: function(value,row,index){
 								return "<a href='javascript:_systemManager_Js.deleteCategory(" + row.id+ ");' >删除</a>";
 							}
-				        }
+						}
 			    	]] ;
 			    	
 				$("#categoryTree").treegrid({  

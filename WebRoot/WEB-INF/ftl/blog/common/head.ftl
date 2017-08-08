@@ -3,25 +3,25 @@
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse blog-navbar">
 			<div class="container">
 			<div class="navbar-header">
-		      <a class="navbar-brand" href="#"><small>欢迎使用小航博客</small></a>
+		      <a class="navbar-brand" href="/index.html"><small>欢迎使用小航博客</small></a>
 		    </div>
 			
 				<div class="collapse navbar-collapse" >
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">切换主题 <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">原始</a></li>
-								<li><a href="#">蓝色</a></li>
-								<li><a href="#">绿色</a></li>
-							</ul></li>
-						<li><a href="#">关于我们</a></li>
-					</ul>
+					<#--<ul class="nav navbar-nav navbar-right">-->
+						<#--<li class="dropdown"><a href="#" class="dropdown-toggle"-->
+							<#--data-toggle="dropdown" role="button" aria-haspopup="true"-->
+							<#--aria-expanded="false">切换主题 <span class="caret"></span></a>-->
+							<#--<ul class="dropdown-menu">-->
+								<#--<li><a href="#">原始</a></li>-->
+								<#--<li><a href="#">蓝色</a></li>-->
+								<#--<li><a href="#">绿色</a></li>-->
+							<#--</ul></li>-->
+						<#--<li><a href="#">关于我们</a></li>-->
+					<#--</ul>-->
 
-					<form class="navbar-form navbar-right">
+					<form class="navbar-form navbar-right" action="/s/search.html" method="post">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="关键字">
+							<input type="text" name="search" class="form-control" placeholder="关键字">
 						</div>
 						<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>搜索</button>
 					</form>

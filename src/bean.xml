@@ -1,10 +1,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:tx="http://www.springframework.org/schema/tx"
-    xsi:schemaLocation="
+	xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
         http://www.springframework.org/schema/context
@@ -12,7 +12,9 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd 
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/task
+		http://www.springframework.org/schema/task/spring-task-3.1.xsd
         ">
 		
 	<context:property-placeholder location="classpath:db.properties" />
@@ -78,11 +80,10 @@
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSsessionFactory"></constructor-arg>
 	</bean>
-	
-	<!-- 注解扫描 -->
-	<context:component-scan base-package="com.blog">
-		<context:exclude-filter type="regex" expression="com\.blog\.mvc\.controller\.*"/>
-	</context:component-scan>
+
+
+
+
 		
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactoryBeanName" value="sqlSsessionFactory"></property>
@@ -111,12 +112,6 @@
 		</property>
 	</bean>
 
-
-
-
-	
-
-
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- maxUploadSize:文件上传的最大值以byte为单位 -->
@@ -125,5 +120,15 @@
 	
 	
 	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+
+
+	<!-- 注解扫描 -->
+	<context:component-scan base-package="com.blog">
+		<context:exclude-filter type="regex" expression="com\.blog\.mvc\.controller\.*"/>
+	</context:component-scan>
+
+	<!-- 定时任务开启  -->
+	<task:annotation-driven/>
 	
 </beans>

@@ -2,6 +2,7 @@ package com.blog.mvc.controller;
 
 import javax.annotation.Resource;
 
+import com.blog.mvc.cache.FreemakerCache;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -25,10 +26,16 @@ import com.blog.mvc.utils.RenderJson;
 public class SystemManagerController extends BaseController{
 	
 	private static final Log log = LogFactory.getLog(SystemManagerController.class);
-	
+
+
+
+
 	@Resource
 	private ISystemManagerService systemManagerService;
-	
+
+	@Resource
+	private FreemakerCache freemakerCache;
+
 	@RequestMapping(value="/index.action" ,method={RequestMethod.GET})
 	public String index(){
 		return "systemManager/index.jsp";
@@ -51,7 +58,7 @@ public class SystemManagerController extends BaseController{
 				return RenderJson.Instance().SUCCESS().defaultSuccessMessage();
 			}
 		}catch(Exception e){
-			log.error(e.getMessage());
+			log.info(e.getMessage());
 		}
 		return RenderJson.Instance().ERROR().defaultErrorMessage();
 	}
@@ -64,7 +71,7 @@ public class SystemManagerController extends BaseController{
 				return RenderJson.Instance().SUCCESS().defaultSuccessMessage();
 			}
 		}catch(Exception e){
-			log.equals(e.getMessage());
+			log.info(e.getMessage());
 		}
 		return RenderJson.Instance().ERROR().defaultErrorMessage();
 	}
@@ -77,9 +84,23 @@ public class SystemManagerController extends BaseController{
 				return RenderJson.Instance().SUCCESS().defaultSuccessMessage();
 			}
 		}catch(Exception e){
-			log.equals(e.getMessage());
+			log.info(e.getMessage());
 		}
 		return RenderJson.Instance().ERROR().defaultErrorMessage();
 	}
-	
+
+	@RequestMapping(value="/refresh.action")
+	public @ResponseBody RenderJson refresh(Integer id){
+		try{
+			freemakerCache.refresh();
+			return RenderJson.Instance().SUCCESS().defaultSuccessMessage();
+		}catch(Exception e){
+			log.info(e.getMessage());
+		}
+		return RenderJson.Instance().ERROR().defaultErrorMessage();
+	}
+
+
+
+
 }

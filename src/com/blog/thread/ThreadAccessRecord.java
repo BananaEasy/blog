@@ -2,11 +2,9 @@ package com.blog.thread;
 
 import com.blog.mvc.dao.AccessRecordMapper;
 import com.blog.mvc.entity.AccessRecord;
-import com.blog.mvc.utils.UUIDUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -52,9 +50,8 @@ public class ThreadAccessRecord {
                                 if(null == ar){
                                     Thread.sleep(200);
                                 } else {
-                                    log.info("保存系统日志到数据库start......");
+                                    log.info("保存系统日志到数据库");
                                     accessRecordMapper.insert(ar);
-                                    log.info("保存操作日志到数据库end......");
                                 }
                             } catch (InterruptedException e) {
                                 log.error("保存系统日志到数据库异常：" + e.getMessage());

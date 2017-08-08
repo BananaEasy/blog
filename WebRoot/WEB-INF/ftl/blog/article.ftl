@@ -13,8 +13,8 @@
 <link href="/ref/css/style.css" rel="stylesheet">
 
 <!-- comment css-->
-<link rel="stylesheet" href="ref/jquerywbpl/css/style.css">
-<link rel="stylesheet" href="ref/jquerywbpl/css/comment.css">
+<link rel="stylesheet" href="/ref/jquerywbpl/css/style.css">
+<link rel="stylesheet" href="/ref/jquerywbpl/css/comment.css">
 <!-- comment css end -->
 </head>
 <body>
@@ -23,7 +23,7 @@
 	<#include "common/head.ftl"/>
 		<ol class="breadcrumb blog-breadcrumb">
 			<li><a href="/">主页</a></li>
-			<li><a href="#">${article.index.category.name !}</a></li>
+			<li><a href="/c/cid/${article.index.category.id!""}.html">${article.index.category.name !}</a></li>
 			<li>${article.index.articletitle!""}</li>
 		</ol>
 
@@ -50,8 +50,8 @@
 					<div class="blog-article-article-head-meta">
 						<table>
 							<tr>
-								<td>标签:<a href="#">${article.index.lable.name!"未知"}</a></td>
-								<td>分类:<a href="#">${article.index.category.name!"未知"}</a></td>
+								<td>标签:<a href="/c/lid/${article.index.lable.id!""}.html">${article.index.lable.name!"未知"}</a></td>
+								<td>分类:<a href="/c/cid/${article.index.category.id!""}.html">${article.index.category.name!"未知"}</a></td>
 								<td>文章来源:<a href="${article.index.articlehref!"javascript:;"}">${article.index.articlehreftitle!""}</a></td>
 							</tr>
 						</table>
@@ -61,10 +61,10 @@
 
 				<div class="blog-article-page">
 					<p>
-						上一篇:<#if article.pre?? ><a href="${article.pre.id!}">${article.pre.articletitle!}</a><#else> <span>没有更多了</span>  </#if>
+						上一篇:<#if article.pre?? ><a href="/${article.pre.id!}.html">${article.pre.articletitle!}</a><#else> <span>没有更多了</span>  </#if>
 					</p>
 					<p>
-						下一篇:<#if article.next?? > <a href="${article.next.id!}">${article.next.articletitle!}</a> <#else> <span>没有更多了</span> </#if>
+						下一篇:<#if article.next?? > <a href="/${article.next.id!}.html">${article.next.articletitle!}</a> <#else> <span>没有更多了</span> </#if>
 					</p>
 				</div>
 

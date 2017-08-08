@@ -62,7 +62,7 @@ CREATE TABLE ARTICLE_
    ARTICLEHREFTITLE     VARCHAR(1024) COMMENT '文章来自哪个网站的标题',
    COUNT_               BIGINT COMMENT '浏览次数',
    TOP_                 INT COMMENT '置顶',
-   ISLOCK_                 INT COMMENT '是否锁定',
+   ISLOCK                 INT COMMENT '是否锁定',
    VERSION_             INT COMMENT '版本号',
    ISORIGINAL_          INT COMMENT '是否是原创',
    ARTICLETITLEIMAGEPATH1 VARCHAR(1024) COMMENT '文章标题提示图片',

@@ -19,8 +19,7 @@ public class ControllerAspectJ {
 	
 	private static final Log log = LogFactory.getLog(ControllerAspectJ.class);
 	
-	public ControllerAspectJ() {
-		System.out.println("Aop");
+	public ControllerAspectJ(){
 	}
 
     //Controller层切点    

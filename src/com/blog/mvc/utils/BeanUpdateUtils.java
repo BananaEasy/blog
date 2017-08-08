@@ -38,7 +38,7 @@ public class BeanUpdateUtils {
 			//关闭安全检查
 			ff.setAccessible(true);
 			Annotation[] annotations = ff.getDeclaredAnnotations();
-			System.out.println(Arrays.toString(annotations));
+			//System.out.println(Arrays.toString(annotations));
 			//是否使用了DataFinal的注解
 			//使用了就跳过
 			if(annotations==null || annotations.length == 0){

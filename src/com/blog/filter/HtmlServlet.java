@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,9 +40,19 @@ public class HtmlServlet extends HttpServlet {
         super.init();
     }
     private void urlrewriteRegister(){
-        urlrewrite = new HashMap<String,String>();
+        urlrewrite = new LinkedHashMap<String,String>();
+
+        //搜索
+        urlrewrite.put("^/s/search\\.html$","/item.action");
+        //按指定条件
+        urlrewrite.put("^/c/([a-zA-Z]+?)/([a-zA-Z0-9\\-]+)\\.html$","/item.action?$1=$2");
+
+        //匹配文章显示
+        urlrewrite.put("^/([0-9]+)\\.html$","/article.action?id=$1");
+
+        //匹配所有的 /*.html
         urlrewrite.put("^/([a-zA-Z]+?)\\.html$","/$1.action");
-        //urlrewrite.put("","");
+
         //urlrewrite.put("","");
         //urlrewrite.put("","");
     }
@@ -80,11 +90,11 @@ public class HtmlServlet extends HttpServlet {
 
         for(Map.Entry<String,String> set :urlrewrite.entrySet()){
             String furl = set.getKey();
-            String turl = set.getValue();
             Pattern p = Pattern.compile(furl);
             Matcher m = p.matcher(fromUrl);
             boolean b = m.matches();
             if(true == b){
+                String turl = set.getValue();
                 toUrl = fromUrl.replaceAll(furl,turl);
                 log.info("TOURL :" + toUrl);
                 //转发到指定页面
@@ -98,8 +108,6 @@ public class HtmlServlet extends HttpServlet {
         if(fromUrl.lastIndexOf("/") ==  fromUrl.length()-1){
             req.getRequestDispatcher(fromUrl + "index.action").forward(req, resp);
         }
-        //返回404错误
-        //resp.setStatus(404);
     }
 
     /**
