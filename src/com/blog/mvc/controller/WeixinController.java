@@ -6,10 +6,13 @@ import com.github.sd4324530.fastweixin.message.BaseMsg;
 import com.github.sd4324530.fastweixin.message.TextMsg;
 import com.github.sd4324530.fastweixin.message.req.TextReqMsg;
 import com.github.sd4324530.fastweixin.servlet.WeixinControllerSupport;
+import com.github.sd4324530.fastweixin.util.SignUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +20,7 @@ import java.util.List;
  * Created by LiHang on 2017/8/9.
  */
 @RestController
-@RequestMapping("/weixin")
+@RequestMapping("/weixin.action")
 public class WeixinController extends WeixinControllerSupport {
     private Log log = LogFactory.getLog(getClass());
 
@@ -66,5 +69,15 @@ public class WeixinController extends WeixinControllerSupport {
         return handles;
     }
 
+    @Override
+    protected boolean isLegal(HttpServletRequest request) {
+        String signature = request.getParameter("signature");
+        String timestamp = request.getParameter("timestamp");
+        String nonce = request.getParameter("nonce");
 
+        boolean legal = super.isLegal(request);
+
+        log.info(signature + "-------" + timestamp + "-------" + nonce + "---------" + legal);
+        return legal;
+    }
 }
