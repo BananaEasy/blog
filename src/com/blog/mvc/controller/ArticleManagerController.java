@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.blog.annotation.RenderJsonInvok;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -86,78 +87,58 @@ public class ArticleManagerController extends BaseController{
 		return null;
 	}
 	
-	
+	@RenderJsonInvok
 	@RequestMapping(value="/add.action" )
 	@ResponseBody
 	public RenderJson add(Article article){
-		try{
-			if( articleManagerService.insert(article) > 0 ){
-				return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			log.error(e.getMessage());
-		}
-		return RenderJson.Instance().defaultErrorMessage().ERROR() ;
-	}
-	
+		RenderJson instance = RenderJson.Instance();
 
+		if( articleManagerService.insert(article) > 0 )
+			return instance.defaultSuccessMessage().SUCCESS() ;
+
+		return instance.defaultErrorMessage().ERROR() ;
+	}
+
+	@RenderJsonInvok
 	@RequestMapping(value="/update.action" )
 	@ResponseBody
 	public RenderJson update(Article article){
-		try{
-			if( articleManagerService.updateByPrimaryKey(article) > 0 ){
-				return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			log.error(e.getMessage());
-		}
-		return RenderJson.Instance().defaultErrorMessage().ERROR() ;
-	}
-	
+		RenderJson instance = RenderJson.Instance();
+		if( articleManagerService.updateByPrimaryKey(article) > 0 )
+			return instance.defaultSuccessMessage().SUCCESS() ;
 
+		return instance.defaultErrorMessage().ERROR() ;
+	}
+
+	@RenderJsonInvok
 	@RequestMapping(value="/delete.action" )
 	@ResponseBody
 	public RenderJson delete(Integer id){
-		try{
-			if( articleManagerService.deleteByPrimaryKey(id) > 0 ){
-				return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			log.error(e.getMessage());
+
+		if( articleManagerService.deleteByPrimaryKey(id) > 0 ){
+			return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
 		}
 		return RenderJson.Instance().defaultErrorMessage().ERROR() ;
 	}
-	
-	
+
+	@RenderJsonInvok
 	@RequestMapping(value="/setTop.action" )
 	@ResponseBody
 	public RenderJson setTop(Integer id){
-		try{
-			if( articleManagerService.articleTop(id) > 0 ){
-				return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			log.error(e.getMessage());
+		RenderJson instance = RenderJson.Instance();
+		if( articleManagerService.articleTop(id) > 0 ){
+			return instance.defaultSuccessMessage().SUCCESS() ;
 		}
-		return RenderJson.Instance().defaultErrorMessage().ERROR() ;
+		return instance.defaultErrorMessage().ERROR() ;
 	}
-	
-	
 
+
+	@RenderJsonInvok
 	@RequestMapping(value="/setTopDefault.action" )
 	@ResponseBody
 	public RenderJson setTopDefault(Integer id){
-		try{
-			if( articleManagerService.articleSettingTopDefault(id) > 0 ){
-				return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			log.error(e.getMessage());
+		if( articleManagerService.articleSettingTopDefault(id) > 0 ){
+			return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
 		}
 		return RenderJson.Instance().defaultErrorMessage().ERROR() ;
 	}
@@ -181,47 +162,38 @@ public class ArticleManagerController extends BaseController{
 		PageInfo<Label> p = new PageInfo<Label>(list);
 		return new EasyUIData().setRows(p.getList()).setTotal(p.getTotal());
 	}
-	
+
+	@RenderJsonInvok
 	@RequestMapping(value="/label/add.action" )
 	@ResponseBody
 	public RenderJson labelAdd(Label laabel){
-		try{
-			if( labelService.insert(laabel) > 0 ){
-				return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			log.error(e.getMessage());
+		RenderJson instance = RenderJson.Instance();
+		if( labelService.insert(laabel) > 0 ){
+			return instance.defaultSuccessMessage().SUCCESS() ;
 		}
-		return RenderJson.Instance().defaultErrorMessage().ERROR() ;
+		return instance.defaultErrorMessage().ERROR() ;
 	}
-	
+
+	@RenderJsonInvok
 	@RequestMapping(value="/label/update.action" )
 	@ResponseBody
 	public RenderJson labelUpdate(Label laabel){
-		try{
-			if( labelService.updateByPrimaryKey(laabel) > 0 ){
-				return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			log.error(e.getMessage());
+		RenderJson instance = RenderJson.Instance();
+		if( labelService.updateByPrimaryKey(laabel) > 0 ){
+			return instance.defaultSuccessMessage().SUCCESS() ;
 		}
-		return RenderJson.Instance().defaultErrorMessage().ERROR() ;
+		return instance.defaultErrorMessage().ERROR() ;
 	}
-	
+
+	@RenderJsonInvok
 	@RequestMapping(value="/label/delete.action" )
 	@ResponseBody
 	public RenderJson labelDelete(Integer id){
-		try{
-			if( labelService.deleteByPrimaryKey(id) > 0 ){
-				return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			log.error(e.getMessage());
+		RenderJson instance = RenderJson.Instance();
+		if( labelService.deleteByPrimaryKey(id) > 0 ){
+			return instance.defaultSuccessMessage().SUCCESS() ;
 		}
-		return RenderJson.Instance().defaultErrorMessage().ERROR() ;
+		return instance.defaultErrorMessage().ERROR() ;
 	}
 	
 }

@@ -1,80 +1,47 @@
 package com.blog.mvc.aop;
 
-import java.lang.reflect.Method;
-
+import com.blog.annotation.ControllerInvok;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
-import com.blog.annotation.ControllerInvok;
+import java.lang.reflect.Method;
 
-@Aspect    
+
+/**
+ * Controller 日志  Aop
+ */
+@Aspect
 @Component
 public class ControllerAspectJ {
-	
-	private static final Log log = LogFactory.getLog(ControllerAspectJ.class);
-	
+
+	private  final Log log = LogFactory.getLog(getClass());
+
 	public ControllerAspectJ(){
+        log.info("Controller 日志  Aop创建");
 	}
 
     //Controller层切点    
-    @Pointcut("@annotation(com.blog.annotation.ControllerInvok)")    
-     public  void controllerAspect() {    
-    }    
+    @Pointcut("within(@org.springframework.stereotype.Controller *)")
+    public  void controllerAspect() {
 
-    
-    @AfterThrowing(pointcut = "controllerAspect()", throwing = "e")    
-    public void controllerBefor(JoinPoint joinPoint, Throwable e) {
-    	try {
-    	
-    		//获取方法信息
-			String description = getControllerMethodDescription(joinPoint);
-			
-			System.out.println(description);
-			
-			
-			
-		} catch (Exception ee) {
-			ee.printStackTrace();
-			log.error(ee.getMessage());
-		}
-    	
-    	
     }
-    
-    
-    
-    
-    
-    
-    /**  
-     * 获取注解中对方法的描述信息 用于Controller层注解  
-     * @param joinPoint 切点  
-     * @return 方法描述  
-     * @throws Exception  
-     */    
-     public  static String getControllerMethodDescription(JoinPoint joinPoint)  throws Exception {    
-        String targetName = joinPoint.getTarget().getClass().getName();    
-        String methodName = joinPoint.getSignature().getName();    
-        Object[] arguments = joinPoint.getArgs();    
-        Class targetClass = Class.forName(targetName);    
-        Method[] methods = targetClass.getMethods();    
-        String description = "";    
-         for (Method method : methods) {    
-             if (method.getName().equals(methodName)) {    
-                Class[] clazzs = method.getParameterTypes();    
-                 if (clazzs.length == arguments.length) {    
-                    description = method.getAnnotation(ControllerInvok. class).description();    
-                     break;    
-                }    
-            }    
-        }    
-         return description;    
-    }    
+
+
+    /**
+     * 前置通知（Before advice） ：在某连接点（JoinPoint）之前执行的通知，但这个通知不能阻止连接点前的执行。
+     * @param joinPoint
+     */
+    @Before("controllerAspect()")
+    public void doBefore(JoinPoint joinPoint)
+    {
+        String targetName = joinPoint.getTarget().getClass().getName();
+        String methodName = joinPoint.getSignature().getName();
+
+        log.info("ClassName:" + targetName +"--------Method:"+ methodName);
+    }
 
 }

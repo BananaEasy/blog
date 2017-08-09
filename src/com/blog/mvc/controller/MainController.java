@@ -39,16 +39,10 @@ public class MainController extends BaseController{
 	
 	private final Log log = LogFactory.getLog(getClass());
 	
-	
-	@Resource
-	private ISystemManagerService systemManagerService;
-	
+
 	@Resource
 	private IArticleService articleService;
-	
-	
-	@Resource
-	private FreemakerCache freemakerCache;
+
 	
 	@Resource
 	private ICommentService commentService;
@@ -86,11 +80,10 @@ public class MainController extends BaseController{
 	
 	/**
 	 * 留言板
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="/message.action" ,method={RequestMethod.GET})
-	public String message(Model model){
+	public String message(){
 		return "blog/message.ftl";
 	}
 	

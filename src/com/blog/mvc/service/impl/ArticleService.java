@@ -8,9 +8,9 @@ import java.util.Map;
 import com.blog.model.Condition;
 import com.blog.mvc.utils.DateUtil;
 import com.blog.mvc.utils.DateUtil2;
-import com.blog.thread.QuartzHandleCache;
+import com.blog.thread.ArticleCountQuartz;
+import com.blog.thread.FreemakerCacheQuartz;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Service;
 
 import com.blog.model.ArticleMonths;
@@ -70,7 +70,8 @@ public class ArticleService extends ArticleManagerService implements
 			throw new NotFondException("文章ID : " + id);
 		}
 		//提交任务给定时器
-		QuartzHandleCache.addArticleId(id);
+		ArticleCountQuartz.addArticleId(id);
+
 		loadCategory(article);
 		loadLabel(article);
 		ac.put("pre", getPreArticle(id));

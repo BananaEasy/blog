@@ -67,9 +67,9 @@
 					<#if ( pageInfo ??) >
 					<div class="blog-content-page">
 						<div class="btn-group btn-group-lg" role="group">
-							<#if (pageInfo.hasPreviousPage) ><a type="button" class="btn btn-default" href="${pageInfo.prePage}"><strong>上一页</strong></a></#if>
+							<#if (pageInfo.hasPreviousPage) ><a type="button" class="btn btn-default" href="/index-${pageInfo.prePage}.html"><strong>上一页</strong></a></#if>
 							<span><strong>第${pageInfo.pageNum}页/共${pageInfo.pages}页</strong></span> 
-							<#if (pageInfo.hasNextPage)><a type="button" class="btn btn-default" href="${pageInfo.nextPage}" ><strong>下一页</strong></a></#if>
+							<#if (pageInfo.hasNextPage)><a type="button" class="btn btn-default" href="/index-${pageInfo.nextPage}.html" ><strong>下一页</strong></a></#if>
 						</div>
 					</div>
 					</#if>

@@ -9,6 +9,7 @@ import com.blog.mvc.entity.Article;
 import com.blog.mvc.entity.ArticleExample;
 
 public interface ArticleMapper extends BaseMapper<Article>{
+
     long countByExample(ArticleExample example);
 
     int deleteByExample(ArticleExample example);

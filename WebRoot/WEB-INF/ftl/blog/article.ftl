@@ -11,11 +11,6 @@
 <!-- Bootstrap -->
 <link href="/ref/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="/ref/css/style.css" rel="stylesheet">
-
-<!-- comment css-->
-<link rel="stylesheet" href="/ref/jquerywbpl/css/style.css">
-<link rel="stylesheet" href="/ref/jquerywbpl/css/comment.css">
-<!-- comment css end -->
 </head>
 <body>
 	<#include "common/banner.ftl"/>
