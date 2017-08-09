@@ -22,6 +22,8 @@ public class WeixinController extends WeixinControllerSupport {
     private Log log = LogFactory.getLog(getClass());
 
     private static final String TOKEN = "a123520";
+    private static final String APPID = "wxfae1691a49b0dd80";
+    private static final String AESKEY = "rbwUul1BPGeaNsyA6mgqHjd3VfouDLJmWZY2D3vibis";
     //设置TOKEN，用于绑定微信服务器
     @Override
     protected String getToken() {
@@ -31,13 +33,13 @@ public class WeixinController extends WeixinControllerSupport {
     //不再强制重写，有加密需要时自行重写该方法
     @Override
     protected String getAppId() {
-        return null;
+        return APPID;
     }
     //使用安全模式时设置：密钥
     //不再强制重写，有加密需要时自行重写该方法
     @Override
     protected String getAESKey() {
-        return null;
+        return AESKEY;
     }
     //重写父类方法，处理对应的微信消息
     @Override

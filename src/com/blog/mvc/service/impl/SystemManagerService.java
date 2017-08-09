@@ -2,11 +2,8 @@ package com.blog.mvc.service.impl;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import com.blog.model.MenuModel;
 import com.blog.model.MenuModelFactory;
 import com.blog.mvc.dao.CategoryMapper;
@@ -24,7 +21,8 @@ public class SystemManagerService extends BaseService<Category> implements ISyst
 		this.categoryMapper = categoryMapper;
 		super.setBaseMapper(categoryMapper);
 	}
-	
+
+
 	@Override
 	public List<Category> getList (){
 		CategoryExample categoryExample = new CategoryExample();
