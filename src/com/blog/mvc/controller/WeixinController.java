@@ -6,13 +6,17 @@ import com.github.sd4324530.fastweixin.message.BaseMsg;
 import com.github.sd4324530.fastweixin.message.TextMsg;
 import com.github.sd4324530.fastweixin.message.req.TextReqMsg;
 import com.github.sd4324530.fastweixin.servlet.WeixinControllerSupport;
+import com.github.sd4324530.fastweixin.servlet.WeixinSupport;
 import com.github.sd4324530.fastweixin.util.SignUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +25,19 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/weixin.action")
-public class WeixinController extends WeixinControllerSupport {
+public class WeixinController extends WeixinSupport {
     private Log log = LogFactory.getLog(getClass());
 
     private static final String TOKEN = "a123520";
     private static final String APPID = "wxfae1691a49b0dd80";
     private static final String AESKEY = "rbwUul1BPGeaNsyA6mgqHjd3VfouDLJmWZY2D3vibis";
+
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public void bind(HttpServletRequest request, HttpServletResponse response) {
+        bindServer(request, response);
+    }
+
     //设置TOKEN，用于绑定微信服务器
     @Override
     protected String getToken() {
