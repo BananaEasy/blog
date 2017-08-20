@@ -5,3 +5,8 @@
 		</p>
 	</div>
 </footer>
+<script>
+    $('img').error(function(){
+        $(this).attr('src', "/images/noimage.png");
+    });
+</script>

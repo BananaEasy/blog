@@ -14,6 +14,8 @@
 <link href="/ref/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="/ref/css/style.css" rel="stylesheet">
 </head>
+<script src="/ref/jquery/jquery-2.1.3.min.js"></script>
+<script src="/ref/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 <body>
 	<#include "common/banner.ftl">
 	<div class="container blog-content">
@@ -66,9 +68,7 @@
 	<#include "common/footer.ftl"/>
 </body>
 
-<script src="/ref/jquery/jquery-2.1.3.min.js"></script>
 
-<script src="/ref/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 
 <script src="/ref/wangEditor/wangEditor.min.js"></script>
 
