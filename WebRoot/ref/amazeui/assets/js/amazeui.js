@@ -15808,7 +15808,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var UI = __webpack_require__(2);
 
 	function duoshuoInit() {
-	  var $dsThread = $('.ds-thread');
+	  var $dsThread = $('.ds-quartz');
 	  var dsShortName = $dsThread.parent('[data-am-widget="duoshuo"]').
 	    attr('data-ds-short-name');
 	  var dsSrc = (document.location.protocol == 'https:' ? 'https:' : 'http:') +

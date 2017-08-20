@@ -5,12 +5,13 @@
 <head>
 <title>新增</title>
 </head>
-<script type="text/javascript"  charset="utf-8" src="/ref/ueditor/ueditor.config.js"></script>
-<script type="text/javascript"  charset="utf-8" src="/ref/ueditor/ueditor.all.js"></script>
- <link rel="stylesheet" type="text/css" href="/ref/layui/css/layui.css">
+<link rel="stylesheet" type="text/css" href="/ref/layui/css/layui.css">
 <link rel="stylesheet" type="text/css" href="/ref/css/managerStyle.css">
 <script type="text/javascript" src="/ref/jquery/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="/ref/layui/lay/dest/layui.all.js"></script>
+<script type="text/javascript" src="/ref/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/ref/ueditor/ueditor.all.min.js"></script>
+
 <body>
 	<div style="width: 1200px;margin:  0 auto;" >
 		<fieldset class="layui-elem-field layui-field-title"
@@ -100,8 +101,51 @@
 				</div>
 			    </div>
 			  </div>
-			  
-			  
+
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">原创?</label>
+					<div class="layui-input-inline">
+						<select name="isoriginal" lay-verify="required" lay-search="">
+							<option value="1">是</option>
+							<option value="2">否</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">锁定?</label>
+					<div class="layui-input-inline">
+						<select name="islock" lay-verify="required" lay-search="">
+							<option value="1">否</option>
+							<option value="2">是</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">类别</label>
+					<div class="layui-input-inline">
+						<select name="categoryId" lay-verify="required" lay-search="">
+							<c:forEach items="${requestScope.catgoryList}" var="category">
+								<option value="${category.id}">${category.name }</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">标签</label>
+					<div class="layui-input-inline">
+						<select name="labelId" lay-verify="required" lay-search="">
+							<c:forEach items="${requestScope.labelList}" var="label">
+								<option value="${label.id}">${label.name }</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+			</div>
 			 
 			  <div class="layui-form-item layui-form-text">
 			    <label class="layui-form-label">文章内容</label>
@@ -109,50 +153,7 @@
 				    <script id="content" name="articlecontent" type="text/plain" style="height: 500px;"></script>
 			    </div>
 			  </div>
-			  
-			   <div class="layui-form-item">
-			    <div class="layui-inline">
-			     <label class="layui-form-label">原创?</label>
-				<div class="layui-input-inline">
-					<select name="isoriginal" lay-verify="required" lay-search="">
-				          <option value="1">是</option>
-				          <option value="2">否</option>
-				     </select>
-				</div>
-			    </div>
-			    <div class="layui-inline">
-			      <label class="layui-form-label">锁定?</label>
-				<div class="layui-input-inline">
-					<select name="islock" lay-verify="required" lay-search="">
-				          <option value="1">否</option>
-				          <option value="2">是</option>
-				     </select>
-				</div>
-			    </div>
-			  </div>
-			  
-			  <div class="layui-form-item">
-			    <div class="layui-inline">
-			     <label class="layui-form-label">类别</label>
-				<div class="layui-input-inline">
-					<select name="categoryId" lay-verify="required" lay-search="">
-				         <c:forEach items="${requestScope.catgoryList}" var="category">
-				         	<option value="${category.id}">${category.name }</option>
-				         </c:forEach>
-				     </select>
-				</div>
-			    </div>
-			    <div class="layui-inline">
-			      <label class="layui-form-label">标签</label>
-				<div class="layui-input-inline">
-					<select name="labelId" lay-verify="required" lay-search="">
-				         <c:forEach items="${requestScope.labelList}" var="label">
-				         	<option value="${label.id}">${label.name }</option>
-				         </c:forEach>
-				     </select>
-				</div>
-			    </div>
-			  </div>
+
 			  
 		</form>
 		  <a class="layui-btn" href="javascript:save();">保存</a>

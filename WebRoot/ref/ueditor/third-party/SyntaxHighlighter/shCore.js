@@ -2651,7 +2651,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 						'mutable naked namespace new noinline noreturn nothrow ' +
 						'register reinterpret_cast return selectany ' +
 						'sizeof static static_cast struct switch template this ' +
-						'thread throw true false try typedef typeid typename union ' +
+						'quartz throw true false try typedef typeid typename union ' +
 						'using uuid virtual void volatile whcar_t while';
 					
 		var functions =	'assert isalnum isalpha iscntrl isdigit isgraph islower isprint' +

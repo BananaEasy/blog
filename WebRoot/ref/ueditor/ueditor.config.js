@@ -19,7 +19,11 @@
      * 因此，UEditor提供了针对不同页面的编辑器可单独配置的根路径，具体来说，在需要实例化编辑器的页面最顶部写上如下代码即可。当然，需要令此处的URL等于对应的配置。
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
-    var URL = window.UEDITOR_HOME_URL || getUEBasePath();
+
+	window.UEDITOR_HOME_URL = "/ref/ueditor/";
+	var URL = window.UEDITOR_HOME_URL || getUEBasePath();
+
+
 
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
@@ -61,7 +65,7 @@
         //,theme:'default'
         //,themePath:URL +"themes/"
 
-        ,zIndex : 900     //编辑器层级的基数,默认是900
+        ,zIndex : 1     //编辑器层级的基数,默认是900
 
         //针对getAllHtml方法，会在对应的head标签中增加该编码设置。
         //,charset:"utf-8"
@@ -87,7 +91,7 @@
 
         //indentValue
         //首行缩进距离,默认是2em
-        //,indentValue:'2em'
+        ,indentValue:'2em'
 
         //,initialFrameWidth:1000  //初始化编辑器宽度,默认1000
         //,initialFrameHeight:320  //初始化编辑器高度,默认320
@@ -228,7 +232,7 @@
         //]
 
         //打开右键菜单功能
-        //,enableContextMenu: true
+        ,enableContextMenu: true
         //右键菜单的内容，可以参考plugins/contextmenu.js里边的默认菜单的例子，label留空支持国际化，否则以此配置为准
         //,contextMenu:[
         //    {
@@ -243,14 +247,14 @@
         //]
 
         //快捷菜单
-        //,shortcutMenu:["fontfamily", "fontsize", "bold", "italic", "underline", "forecolor", "backcolor", "insertorderedlist", "insertunorderedlist"]
+        ,shortcutMenu:["fontfamily", "fontsize", "bold", "italic", "underline", "forecolor", "backcolor", "insertorderedlist", "insertunorderedlist"]
 
         //elementPathEnabled
         //是否启用元素路径，默认是显示
-        //,elementPathEnabled : true
+        ,elementPathEnabled : true
 
         //wordCount
-        //,wordCount:true          //是否开启字数统计
+        ,wordCount:true          //是否开启字数统计
         //,maximumWords:10000       //允许的最大字符数
         //字数统计提示，{#count}代表当前字数，{#leave}代表还可以输入多少字符数,留空支持多语言自动切换，否则按此配置显示
         //,wordCountMsg:''   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
@@ -353,7 +357,7 @@
         //默认过滤规则相关配置项目
         //,disabledTableInTable:true  //禁止表格嵌套
         //,allowDivTransToP:true      //允许进入编辑器的div标签自动变成p标签
-        //,rgb2Hex:true               //默认产出的数据中的color自动从rgb格式变成16进制格式
+        ,rgb2Hex:true               //默认产出的数据中的color自动从rgb格式变成16进制格式
 
 		// xss 过滤是否开启,inserthtml等操作
 		,xssFilterRules: true

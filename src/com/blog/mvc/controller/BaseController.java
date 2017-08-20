@@ -6,11 +6,15 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
 public abstract class BaseController {
+
+	private static Log log = LogFactory.getLog(BaseController.class);
 
 	@Resource
 	protected ServletContext application;
@@ -26,8 +30,12 @@ public abstract class BaseController {
 	public static  String rootPath  = "";
 	
 	static {
-		rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-		rootPath = rootPath.substring(0,rootPath.lastIndexOf("W")-1);
+		try{
+			String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+			rootPath = path.substring(0,path.lastIndexOf("W")-1);
+		}catch (Exception e){
+			log.error("web路径加载失败");
+		}
 		System.out.println(rootPath + "-------------------------------------");
 	}
 	

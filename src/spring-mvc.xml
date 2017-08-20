@@ -66,8 +66,6 @@
 	</bean>
 
 	<!-- 配置freeMarker视图解析器 -->
-
-	<!-- 先找.ftl -->
 	<bean id="viewResolverFtl"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="viewClass"

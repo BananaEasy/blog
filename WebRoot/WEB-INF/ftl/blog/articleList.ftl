@@ -17,9 +17,8 @@
 	<div class="container blog-content">
 	<#include "common/head.ftl">
 		<div class="row">
-			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 ">
+			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 blog-article-height">
 			<#if (articleList?size > 0) >
-				
 				<#list articleList as articleModel>
 					<article class="blog-article">
 						<div class="blog-article-head">
@@ -31,7 +30,7 @@
 							<div class="blog-article-head-meta">
 								<table>
 									<tr>
-										<td>作者:${articleModel.articleusername !"未知"}</td>
+										<td class="hidden-xs">作者:${articleModel.articleusername !"未知"}</td>
 										<td>时间:${articleModel.createtime ?string("yyyy年MM月dd")}</td>
 										<td>浏览次数:${articleModel.count!"0" }</td>
 									</tr>
@@ -57,7 +56,7 @@
 									<tr>
 										<td>标签:<a href="/c/lid/${articleModel.lable.id!""}.html">${articleModel.lable.name!"未知"}</a></td>
 										<td>分类:<a href="/c/cid/${articleModel.category.id!""}.html">${articleModel.category.name!"未知"}</a></td>
-										<td>文章来源:<a href="${articleModel.articlehref!"javascript:;"}">${articleModel.articlehreftitle!""}</a></td>
+										<td class="hidden-xs">文章来源:<a href="${articleModel.articlehref!"javascript:;"}">${articleModel.articlehreftitle!""}</a></td>
 									</tr>
 								</table>
 							</div>
@@ -74,7 +73,7 @@
 					</div>
 					</#if>
 			<#else>	
-					<p style="color:red;text-align: center;font-size:30px">没有数据</p>
+					<p style="color:red;text-align: center;font-size:30px">暂无文章</p>
 			</#if>
 			</div>
 			<div class="hidden-xs col-sm-4 col-md-4 col-lg-4">

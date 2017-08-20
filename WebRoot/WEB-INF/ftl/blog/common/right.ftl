@@ -1,4 +1,12 @@
 <div class="blog-right-panel-group">
+    <div class="panel panel-default blog-right-panel-article">
+        <div class="panel-heading">
+			<strong>小航博客微信公众号</strong>
+        </div>
+        <div class="panel-body">
+            <p><img src="/images/weixin.jpg" style="width: 100%"/></p>
+        </div>
+    </div>
 	<#if (hotArticleList?size > 0)>
 		<div class="panel panel-default blog-right-panel-article">
 			<div class="panel-heading">热门文章</div>
@@ -22,12 +30,14 @@
 
 <#if (labelList?size > 0)>
 	<#assign labelClass = ["label-default", "label-primary", "label-success","label-info","label-warning","label-danger"] >
-	<div class="panel panel-default blog-right-panel-label" style="height:auto;">
+	<div class="panel panel-default blog-right-panel-label">
 		<div class="panel-heading">文章标签</div>
-		<div class="panel-body blog-right-panel-label-body" >
-			<#list labelList as labelModel>
-				<a class="label ${labelClass[labelModel?index%6]}" href="/c/lid/${labelModel.id}.html">${labelModel.name!""}</a>
-			</#list>
+		<div class="panel-body " >
+			<div class="blog-right-panel-label-body">
+				<#list labelList as labelModel>
+					<a class="label ${labelClass[labelModel?index%6]}" href="/c/lid/${labelModel.id}.html">${labelModel.name!""}</a>
+				</#list>
+			</div>
 		</div>
 	</div>
 	

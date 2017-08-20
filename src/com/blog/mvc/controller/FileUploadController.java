@@ -3,6 +3,7 @@ package com.blog.mvc.controller;
 import java.io.File;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -29,13 +30,16 @@ public class FileUploadController extends BaseController {
 	
 	public FileUploadController(){
 		try{
+			if(StringUtils.isBlank(rootPath)){
+				throw new RuntimeException();
+			}
 			File file = new File(rootPath + uploadPath);
 			if(!file.exists()){
 				file.mkdirs();
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			log.error(e.getMessage());
+			log.error("文件上传功能创建失败" +e.getMessage());
 		}
 	}
 	

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.google.gson.Gson;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 import com.blog.mvc.dao.ArticleMapper;
@@ -46,12 +48,12 @@ public class ArticleManagerService extends BaseService<Article> implements
 	public int updateByPrimaryKey(Article t) {
 		Article temp = selectByPrimaryKey(t.getId());
 		temp = (Article) BeanUpdateUtils.objClone(temp, t);
+		LogFactory.getLog(getClass()).info("???" + temp.getArticlecontent());
 		temp.setVersion(temp.getVersion() + 1);
-		return super.updateByPrimaryKey(temp);
+		return articleMapper.updateByPrimaryKeyWithBLOBs(temp);
 	}
 	
-	
-	
+
 	@Override
 	public List<Article> selectAll() {
 		ArticleExample ae = new ArticleExample();

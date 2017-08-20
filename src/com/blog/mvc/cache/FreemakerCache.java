@@ -1,7 +1,5 @@
 package com.blog.mvc.cache;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,18 +7,13 @@ import javax.annotation.Resource;
 
 import com.blog.model.Situation;
 import com.blog.mvc.dao.AccessRecordMapper;
-import com.blog.mvc.dao.CommentMapper;
-import com.blog.mvc.dao.MessageMapper;
 import com.blog.mvc.service.IFrendLinkService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import com.blog.mvc.service.IArticleService;
 import com.blog.mvc.service.ILabelService;
 import com.blog.mvc.service.ISystemManagerService;
-import com.blog.mvc.service.impl.LabelService;
 
 import freemarker.template.TemplateModelException;
 
@@ -42,11 +35,6 @@ public class FreemakerCache{
 	@Resource
 	private AccessRecordMapper accessRecordMapper;
 
-	@Resource
-	private MessageMapper messageMapper;
-
-	@Resource
-	private CommentMapper commentMapper;
 
 	
 	@Resource
@@ -96,9 +84,9 @@ public class FreemakerCache{
 		cache.put("frendLinkList",frendLinkService.selectAll());
 
 		Long articleCount = articleService.countAll();
-		Long messageCount = messageMapper.countByExample();
+		Long messageCount = 0L;
 		Long accessCount = accessRecordMapper.countByExample();
-		Long commentCount = commentMapper.countByExample();
+		Long commentCount = 0L;
 
 		//访问记录
 		Situation situation = new Situation(articleCount,messageCount,accessCount,commentCount);

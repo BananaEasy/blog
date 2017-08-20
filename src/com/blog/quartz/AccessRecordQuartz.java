@@ -1,4 +1,4 @@
-package com.blog.thread;
+package com.blog.quartz;
 
 import com.blog.mvc.dao.AccessRecordMapper;
 import com.blog.mvc.entity.AccessRecord;

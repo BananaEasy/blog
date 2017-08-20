@@ -1,5 +1,5 @@
 body{
-	
+	font-family: 'microsoft yahei'
 }
 
 div {
@@ -22,6 +22,10 @@ div {
    font-size:15px;
 }
 
+.blog-banner-form {
+	padding: 0px 20px;
+}
+
 /*内容区域*/
 .blog-content {
 	overflow: hidden;
@@ -35,7 +39,9 @@ div {
 .blog-breadcrumb {
 	
 }
-
+.blog-article-height{
+	min-height: 800px;
+}
 .blog-article{
 	padding-left: 20px;
 	padding-right: 20px;
@@ -43,6 +49,7 @@ div {
 	border: 1px solid #dbdbdb;
 	margin-bottom: 20px; 
 	font: 400 16px/1.62 "Georgia", "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
+	border-radius:15px;
 }
 .blog-article-head{
 	
@@ -51,10 +58,9 @@ div {
 .blog-article-head-title{
 	width: 100%;
 	height: auto;
-	text-align: center;	
 }
 .blog-article-head-meta{
-	text-align: center;
+	margin-top: 40px;
 	width: 100%;
 	height: auto;
 }
@@ -131,6 +137,7 @@ div {
 .blog-right-panel-label-body{
 	padding: 10px;
 	text-align: center;
+	height: auto;
 }
 
 .blog-right-panel-label-body a{
@@ -166,19 +173,24 @@ div {
 
 /*article.html*/
 .blog-article-article{
-	
 	border-top:1px  solid #dbdbdb;
-	
+
 }
 .blog-article-article-head{
 	padding-top: 20px;
-	text-align: center;
+	/*text-align: center;*/
 }
+.blog-article-article-head h1{
+	color: #00a0e9;
+}
+
+
 .blog-article-article-head-meta{
 	margin-top:20px;
 	width: 100%;
-	background-color: #dbdbdb;
+	background-color: #f2f2f2;
 	text-align: center;
+	border-radius:10px;
 }
 
 .blog-article-article-head-meta table{
@@ -190,18 +202,19 @@ div {
 
 
 .blog-article-article-content{
-	margin-top: 20px;
+	justify-content:center;
 	width: 100%;
-	height: auto;
-	padding-bottom: 50px;
+	padding: 3%;
+	margin-top: 20px;
+	min-height: 800px;
 }
 .blog-article-article-content p{
-	font-size:18px;/*字体大小*/  
-    text-indent:2em;/*首行缩进两个单位*/  
-    line-height:1.5em;/*行距为1.5个单位*/  
-    padding:10px;/*用内边距代替外边距来设置段间距*/  
-    margin:5px 0px;/*去掉默认的段间距*/  
+	line-height:1.5em;
     font: 18px "宋体", Arial, Helvetica, sans-serif;
+}
+.blog-article-article-content img{
+	margin:15px 0px;
+	width: 100%;
 }
 .blog-article-page{
 	margin-top: 40px;
@@ -248,11 +261,13 @@ div {
 
 
 /**--------------------Message  留言板---------------------**/
-
+textarea {
+	resize:none
+}
 
 .blog-message{
 	overflow: hidden;
-	
+	min-height: 800px;
 }
 
 .blog-message-head{
@@ -265,10 +280,15 @@ div {
 }
 
 .blog-message-body{
-	padding: 0px 10px;
+	padding: 0px 20px;
 }
+
+.blog-message-input{
+	width: 100%;
+}
+
 .blog-message-content{
-	
+	width: 100%;
 }
 
 .blog-message-content-head{
@@ -278,10 +298,17 @@ div {
 
 .blog-message-content-body{
 	min-height: 50px;	
-	text-align: center;
 }
 
 .blog-message-content-body p{
 	padding:10px;
 	font: 400 18px/1.62 "Georgia", "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
+}
+.blog-message-content-bottom{
+	margin: 40px 0px;
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	background-color: #6a6a6a;
+	line-height: 40px;
 }

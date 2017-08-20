@@ -1,15 +1,10 @@
 package com.blog.filter;
 
-import com.blog.mvc.entity.AccessRecord;
-import com.blog.mvc.utils.UUIDUtils;
-import com.blog.thread.AccessRecordQuartz;
-import com.blog.tool.ToolWeb;
+import com.blog.quartz.AccessRecordQuartz;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -21,20 +16,11 @@ import java.util.regex.Pattern;
 /**
  * Created by LiHang on 2017/8/6.
  */
-public class HtmlServlet extends HttpServlet {
+public class HtmlFilter implements Filter {
 
-    static final Log log = LogFactory.getLog(HtmlServlet.class);
+    static final Log log = LogFactory.getLog(HtmlFilter.class);
 
     static Map<String,String> urlrewrite ;
-
-
-
-    @Override
-    public void init() throws ServletException {
-        //url转发规则
-        urlrewriteRegister ();
-        super.init();
-    }
 
 
     private void urlrewriteRegister(){
@@ -58,22 +44,25 @@ public class HtmlServlet extends HttpServlet {
         urlrewrite.put("^/([a-zA-Z]+)-([0-9]+)\\.html$","/$1.action?p=$2");
 
 
+        //匹配留言
+        urlrewrite.put("^/message/([a-zA-Z]+)\\.html$","/message/$1.action");
+
+
         //匹配所有的 /*.html
         urlrewrite.put("^/([a-zA-Z]+?)\\.html$","/$1.action");
 
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        hanld(req,resp);
+    public void init(FilterConfig filterConfig) throws ServletException {
+        //url转发规则
+        urlrewriteRegister ();
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        hanld(req,resp);
-    }
-
-    public void hanld (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest)servletRequest;
+        HttpServletResponse resp = (HttpServletResponse)servletResponse;
         //获取path
         String fromUrl = req.getRequestURI();
         String toUrl = "index.action";
@@ -97,8 +86,14 @@ public class HtmlServlet extends HttpServlet {
 
         if(fromUrl.lastIndexOf("/") ==  fromUrl.length()-1){
             req.getRequestDispatcher(fromUrl + "index.action").forward(req, resp);
+            return;
         }
+        filterChain.doFilter(servletRequest,servletResponse);
     }
 
 
+    @Override
+    public void destroy() {
+
+    }
 }

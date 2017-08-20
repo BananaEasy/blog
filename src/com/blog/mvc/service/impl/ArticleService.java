@@ -8,8 +8,7 @@ import java.util.Map;
 import com.blog.model.Condition;
 import com.blog.mvc.utils.DateUtil;
 import com.blog.mvc.utils.DateUtil2;
-import com.blog.thread.ArticleCountQuartz;
-import com.blog.thread.FreemakerCacheQuartz;
+import com.blog.quartz.ArticleCountQuartz;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 

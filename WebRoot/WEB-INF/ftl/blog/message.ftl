@@ -13,17 +13,6 @@
 <!-- Bootstrap -->
 <link href="/ref/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="/ref/css/style.css" rel="stylesheet">
-
-<!-- emoji css -->
-<link rel="stylesheet" href="/ref/jquery-emoji/dist/css/jquery.emoji.css" />
-<link rel="stylesheet"
-	href="/ref/jquery-emoji/lib/css/jquery.mCustomScrollbar.min.css" />
-<!-- emoji end -->
-
-<!-- comment css-->
-<link rel="stylesheet" href="/ref/jquerywbpl/css/style.css">
-<link rel="stylesheet" href="/ref/jquerywbpl/css/comment.css">
-<!-- comment css end -->
 </head>
 <body>
 	<#include "common/banner.ftl">
@@ -38,50 +27,41 @@
 				<div class="panel-body">
 					<div class="blog-message-head">
 						<h3>欢迎各位留言</h3>
-						<p>网站有缓存，，，，，</p>
+						<p>留言功能已开放</p>
 					</div>
 					<hr>
 					<div class="blog-message-body">
-						<form class="form-horizontal">
+						<form class="form-horizontal" id="messageForm">
+                            <div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon" id="sizing-addon1">昵称<font color="red">*</font></span>
+									<input type="text" id="name" name="name" value="" class="form-control" placeholder="名称(必填)" aria-describedby="sizing-addon1">
+								</div>
+                            </div>
 							<div class="form-group">
-								<label for="email" class=" control-label">发表你的留言</label>
-								<textarea class="form-control" rows="4" id="content"></textarea>
+								<div class="input-group">
+									<span class="input-group-addon" id="sizing-addon2">邮箱<font color="red">*</font></span>
+									<input type="email" id="email" name="email" class="form-control" placeholder="邮箱(必填)" value="" aria-describedby="sizing-addon2">
+								</div>
 							</div>
 							<div class="form-group">
-								<div class=" col-xs-8 col-sm-9 col-md-9 col-lg-9 "></div>
-								<button type="submit"
+								<label for="email" class="control-label" style="padding-bottom: 5px;">发表你的留言<font color="red">*</font></label>
+								<input type="hidden" id="content" name="content" value="">
+								<div id="editor"></div>
+							</div>
+							<div class="form-group">
+								<button type="button"  id="sendBtn"
 									class="btn btn-primary col-xs-4 col-sm-3 col-md-3 col-lg-3 ">提交</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
+            <div class="blog-message-content">
+            </div>
 		</div>
-	<#list 1..10 as t>
-		<div class="panel panel-default blog-right-panel-article">
-			<div class="panel-heading">
-				<div class="blog-message-content-head">
-					<p>
-						<strong>张三</strong>
-					</p>
-					<p>
-						<small>2017年7月1日14:49:14</small>
-					</p>
-				</div>
-			</div>
-			<div class="panel-body">
-				<div class="blog-message-content-body">
-					<p>我爱你啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-				</div>
-			</div>
-		</div>
-	</#list>
-		<div class="blog-content-page">
-			<div class="btn-group btn-group-lg" role="group">
-				<a type="button" class="btn btn-default"><strong>上一页</strong></a> <span><strong>第1页/共3页</strong></span>
-				<a type="button" class="btn btn-default"><strong>下一页</strong></a>
-			</div>
-		</div>
+
+        <div class="blog-message-content-bottom" id="toPage">加载更多</div>
 	</div>
 	<#include "common/footer.ftl"/>
 </body>
@@ -89,17 +69,132 @@
 <script src="/ref/jquery/jquery-2.1.3.min.js"></script>
 
 <script src="/ref/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<!-- emoji js  -->
-<!--(Optional) the js for jquery.mCustomScrollbar's addon-->
-<script src="/ref/jquery-emoji/lib/script/jquery.mousewheel-3.0.6.min.js"></script>
-<!--the js for jquery.mCustomScrollbar-->
-<script src="/ref/jquery-emoji/lib/script/jquery.mCustomScrollbar.min.js"></script>
-<!--the js for this plugin-->
-<script src="/ref/jquery-emoji/dist/js/jquery.emoji.min.js"></script>
-<!-- emoji js end -->
-<script src="/ref/js/message.js"></script>
 
-<script type="text/javascript">
-	_MessageJs.loademoji("#content")
+<script src="/ref/wangEditor/wangEditor.min.js"></script>
+
+<script src="/ref/xss/xss.js"></script>
+
+<script src="/ref/layui/lay/modules/layer.js"></script>
+
+<script type="application/javascript">
+	function isblank (str){
+		return str == null ||  str.replace(/(^s*)|(s*$)/g, "").length==0;
+	}
+
+	function add(message) {
+        var html = "<div class=\"panel panel-default blog-right-panel-article\">" +
+                "<div class=\"panel-heading\"><div class=\"blog-message-content-head\">" +
+                "<p><strong>"+filterXSS(message.name)+"</strong></p><p><small>"+(message.data == null?"未知时间":message.data)+"</small></p>" +
+                "</div></div><div class=\"panel-body\"><div class=\"blog-message-content-body\">" +
+                "<p>"+filterXSS(message.content)+"</p>" +
+                "</div></div></div>"
+        return html;
+    }
+
+	var p =  1;
+	function list (){
+        $(".blog-message-content-bottom").text("加载中...");
+		setTimeout(function () {
+            $.ajax({
+                url:"/message/commontList.html",
+                method:"POST",
+                dataType : "json",
+                data:{"p":p},
+                success:function (data) {
+                    if(data.status == "success"){
+                        p = p +1;
+
+                        for(var i=0;i<data.list.length;i++){
+                            var message = data.list[i];
+                            var html = add(message);
+                            $(".blog-message-content").html($(".blog-message-content").html() + html);
+                        }
+
+                        $(".blog-message-content-bottom").text("加载下一页")
+
+                    }else{
+                        $(".blog-message-content-bottom").text("没有更多了")
+                    }
+                },
+                error:function () {
+                    $(".blog-message-content-bottom").text("加载失败")
+                }
+            });
+        },1000);
+	}
+
+    $(function(){
+
+        list();
+		$("#toPage").click(function () {
+			list();
+        });
+		var E = window.wangEditor
+        var editor = new E('#editor');
+        editor.customConfig.zIndex = 1;
+        editor.customConfig.pasteFilterStyle = false
+        editor.customConfig.menus = [
+            'head',
+            'bold',
+            'italic',
+            'underline'
+        ];
+        // 或者 var editor = new E( document.getElementById('#editor') )
+        editor.create();
+		//消息列表
+
+		$("#sendBtn").click(function () {
+			var _name = $("#name").val();
+			var _email = $("#email").val();
+			var _content = editor.txt.text();
+			console.log(_name + "---" + _email + "--" + _content)
+			if(isblank(_name)  ){
+				$("#name").focus();
+                layer.msg('请输入用户名!',{icon: 2});
+				return;
+			}else if( !/(([\u4E00-\u9FA5]{2,7})|([a-zA-Z]{3,10}))/.test(_name) ){
+                $("#name").focus();
+                layer.msg('用户名格式不正确!',{icon: 2});
+                return;
+            }
+            if(isblank(_email) ){
+                $("#email").focus();
+                layer.msg('请输入邮箱!',{icon: 2});
+                return;
+            }else if(!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(_email) ){
+                $("#email").focus();
+                layer.msg('邮箱格式不正确!',{icon: 2});
+                return;
+			}
+            if(isblank(_content)){
+                layer.msg('请输入内容!',{icon: 2});
+                return;
+            }
+			$("#content").val(filterXSS(editor.txt.html()));
+			$.ajax({
+				url:"/message/commont.html",
+				method:"POST",
+                dataType : "json",
+                data:$("#messageForm").serialize(),
+				success:function (data) {
+                   if(data.status == 'success'){
+                       layer.msg(data.message,{icon: 1});
+                       var html = add(data.obj);
+                       $(".blog-message-content").html( html + $(".blog-message-content").html() );
+				   }else{
+                       layer.msg(data.message,{icon: 2});
+				   }
+                },
+				error:function () {
+                    layer.msg("请检查网络",{icon: 2});
+                }
+			});
+        });
+	});
+
+
+
 </script>
+
+
 </html>

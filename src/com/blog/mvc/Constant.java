@@ -2,7 +2,6 @@ package com.blog.mvc;
 
 import com.blog.model.LoginUser;
 import com.blog.mvc.controller.BaseController;
-import com.blog.mvc.entity.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

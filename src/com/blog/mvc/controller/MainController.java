@@ -1,15 +1,17 @@
 package com.blog.mvc.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.blog.model.Condition;
 import com.blog.model.LoginUser;
+import com.blog.model.Message;
+import com.blog.mvc.Constant;
+import com.blog.mvc.entity.Article;
+import com.blog.mvc.exception.MyException;
+import com.blog.mvc.service.IArticleService;
+import com.blog.mvc.utils.Page;
+import com.blog.mvc.utils.RenderJson;
+import com.blog.redis.mvc.service.MessageHandle;
+import com.blog.tool.ToolWeb;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,17 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.blog.mvc.Constant;
-import com.blog.mvc.cache.FreemakerCache;
-import com.blog.mvc.entity.Article;
-import com.blog.mvc.entity.Comment;
-import com.blog.mvc.entity.User;
-import com.blog.mvc.service.IArticleService;
-import com.blog.mvc.service.ICommentService;
-import com.blog.mvc.service.ISystemManagerService;
-import com.blog.mvc.utils.Page;
-import com.blog.mvc.utils.RenderJson;
-import com.github.pagehelper.PageHelper;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -42,11 +38,10 @@ public class MainController extends BaseController{
 
 	@Resource
 	private IArticleService articleService;
-
-	
 	@Resource
-	private ICommentService commentService;
-	
+	private MessageHandle messageHandle;
+
+
 	
 	/**
 	 * 主页
@@ -105,18 +100,12 @@ public class MainController extends BaseController{
 	/**
 	 * 评论
 	 * @param model
-	 * @param comment
-	 * @param user
 	 * @return
 	 */
 	@RequestMapping(value="/comment.action" ,method={RequestMethod.GET})
 	@ResponseBody
-	public RenderJson comment(Model model,Comment comment,User user) {
-		try{
-			return commentService.comment(comment,user);
-		}catch(Exception e){
-			return RenderJson.Instance().ERROR().setMessage("请输入邮箱和用户名,方可评论");
-		}
+	public RenderJson comment(Model model) {
+		return null;
 	}
 	
 	
@@ -129,8 +118,7 @@ public class MainController extends BaseController{
 	@RequestMapping(value="/getComment.action" ,method={RequestMethod.GET})
 	@ResponseBody
 	public RenderJson getComment(Model model,Integer id) {
-		model.addAttribute("article", articleService.show(id));
-		return RenderJson.Instance();
+		return null;
 	}
 
 
@@ -153,5 +141,49 @@ public class MainController extends BaseController{
 		response.sendRedirect("/admin/index.action");
 	}
 
-	
+
+	/**
+	 * 留言
+	 */
+	@RequestMapping(value="/message/commont.action" )
+	@ResponseBody
+	public RenderJson messageCommont(HttpServletRequest request, Message message){
+		RenderJson renderJson = RenderJson.Instance();
+		try{
+			if(message == null){
+				throw new MyException("参数错误");
+			}
+			message.setIp(ToolWeb.getIpAddr(request));
+			Message m = messageHandle.add(message);
+			return renderJson.SUCCESS().setMessage("留言成功").setObj(m);
+		}catch (MyException e){
+			return renderJson.ERROR().setMessage(e.getErrorMsg());
+		}catch (Exception e){
+			return renderJson.ERROR().defaultErrorMessage();
+		}
+	}
+
+
+	/**
+	 * 留言列表
+	 */
+	@RequestMapping(value="/message/commontList.action" )
+	@ResponseBody
+	public RenderJson messageCommontList(Integer p){
+		RenderJson renderJson = RenderJson.Instance();
+		try{
+			if(p == null || p<= 0){
+				p = 1;
+			}
+			List<Message> list = messageHandle.list(p);
+			return renderJson.SUCCESS().setList(list);
+		}catch (MyException e){
+			return renderJson.ERROR().setMessage(e.getErrorMsg());
+		}catch (Exception e){
+			return renderJson.ERROR().setMessage("获取失败");
+		}
+	}
+
+
+
 }

@@ -1,7 +1,8 @@
 package com.blog.mvc.extend;
 
-import com.blog.mvc.entity.Category;
-
+/**
+ * 扩展Category  使其具有
+ */
 public class CategoryTree {
 	
 	 private Integer _parentId;

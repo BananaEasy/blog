@@ -164,6 +164,10 @@ public abstract class ToolString {
      * 常用正则表达式：手机号
      */
     public final static String regExp_mobile = "^0?(13[0-9]|15[012356789]|18[01236789]|14[57])[0-9]{8}$";
+    /**
+     * 匹配用户名
+     */
+    public final static String regExp_userName  = "(([\\u4E00-\\u9FA5]{2,7})|([a-zA-Z]{3,10}))";
 
     /**
      * 字符编码
