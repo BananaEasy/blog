@@ -84,7 +84,7 @@
 	function add(message) {
         var html = "<div class=\"panel panel-default blog-right-panel-article\">" +
                 "<div class=\"panel-heading\"><div class=\"blog-message-content-head\">" +
-                "<p><strong>"+filterXSS(message.name)+"</strong></p><p><small>"+(message.data == null?"未知时间":message.data)+"</small></p>" +
+                "<p><strong>"+filterXSS(message.name)+"</strong></p><p><small>"+(message.date == null?"未知时间":message.date)+"</small></p>" +
                 "</div></div><div class=\"panel-body\"><div class=\"blog-message-content-body\">" +
                 "<p>"+filterXSS(message.content)+"</p>" +
                 "</div></div></div>"
