@@ -297,12 +297,19 @@ textarea {
 }
 
 .blog-message-content-body{
-	min-height: 50px;	
+	min-height: 50px;
+	justify-content:center;
+	width: 100%;
+	padding: 3%;
 }
 
 .blog-message-content-body p{
-	padding:10px;
+	line-height:1.5em;
 	font: 400 18px/1.62 "Georgia", "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
+}
+.blog-message-content-body img{
+	margin:15px 0px;
+	width: 100%;
 }
 .blog-message-content-bottom{
 	margin: 40px 0px;

@@ -19,7 +19,7 @@
 	<div class="container blog-content">
 	<#include "common/head.ftl">
 		<ol class="breadcrumb blog-breadcrumb">
-			<li><a href="#">主页</a></li>
+			<li><a href="/index.html">主页</a></li>
 			<li>留言板</li>
 		</ol>
 		<div class="blog-message">
@@ -181,6 +181,7 @@
                        layer.msg(data.message,{icon: 1});
                        var html = add(data.obj);
                        $(".blog-message-content").html( html + $(".blog-message-content").html() );
+                       editor.txt.html('')
 				   }else{
                        layer.msg(data.message,{icon: 2});
 				   }
