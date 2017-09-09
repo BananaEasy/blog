@@ -3,6 +3,7 @@ package com.blog.mvc.controller;
 import javax.annotation.Resource;
 
 import com.blog.mvc.cache.FreemakerCache;
+import com.blog.quartz.SEOQuartz;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,9 @@ public class SystemManagerController extends BaseController{
 
 	@Resource
 	private ISystemManagerService systemManagerService;
+
+	@Resource
+	private SEOQuartz seoQuartz;
 
 	@Resource
 	private FreemakerCache freemakerCache;
@@ -90,7 +94,7 @@ public class SystemManagerController extends BaseController{
 	}
 
 	@RequestMapping(value="/refresh.action")
-	public @ResponseBody RenderJson refresh(Integer id){
+	public @ResponseBody RenderJson refresh(){
 		try{
 			freemakerCache.refresh();
 			return RenderJson.Instance().SUCCESS().defaultSuccessMessage();
@@ -100,6 +104,16 @@ public class SystemManagerController extends BaseController{
 		return RenderJson.Instance().ERROR().defaultErrorMessage();
 	}
 
+	@RequestMapping(value="/sitemap.action")
+	public @ResponseBody RenderJson sitemap(){
+		try{
+			seoQuartz.refreshSiteMap();
+			return RenderJson.Instance().SUCCESS().defaultSuccessMessage();
+		}catch(Exception e){
+			log.info(e.getMessage());
+		}
+		return RenderJson.Instance().ERROR().defaultErrorMessage();
+	}
 
 
 

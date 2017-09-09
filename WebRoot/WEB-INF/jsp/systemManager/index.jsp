@@ -4,6 +4,7 @@
 		<a  href="javascript:_systemManager_Js.addCategory();" class="easyui-linkbutton" style="width: 100px;">添加</a>
 		<a  href="javascript:_systemManager_Js.saveCategory();" class="easyui-linkbutton" style="width: 100px;">保存</a>
 		<a  href="javascript:_systemManager_Js.refresh();" target="" class="easyui-linkbutton" style="width: 100px;">刷新缓存</a>
+		<a  href="javascript:_systemManager_Js.siteMap();" target="" class="easyui-linkbutton" style="width: 100px;">生成siteMap</a>
 	</div>
 	<div class="manager-index-table">
 		<table id="categoryTree"></table>  
@@ -12,6 +13,9 @@
 <script type="text/javascript">
 
 _systemManager_Js = {
+		siteMap:function () {
+            _base_Js.baseAjax ("重新生成siteMap","/admin/systemManager/sitemap.action",null,null , null);
+		},
 	    refresh:function () {
 			_base_Js.baseAjax ("是否刷新缓存","/admin/systemManager/refresh.action",null,null , null);
 		},

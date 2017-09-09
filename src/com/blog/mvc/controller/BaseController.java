@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 public abstract class BaseController {
 
-	private static Log log = LogFactory.getLog(BaseController.class);
+	protected static Log log = LogFactory.getLog(BaseController.class);
 
 	@Resource
 	protected ServletContext application;

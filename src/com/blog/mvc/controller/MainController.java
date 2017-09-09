@@ -175,7 +175,7 @@ public class MainController extends BaseController{
 			if(p == null || p<= 0){
 				p = 1;
 			}
-			List<Message> list = messageHandle.list(p);
+			List<Message> list = messageHandle.list(p,10);
 			return renderJson.SUCCESS().setList(list);
 		}catch (MyException e){
 			return renderJson.ERROR().setMessage(e.getErrorMsg());

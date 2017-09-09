@@ -8,16 +8,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>博客管理-后台</title>
-<link rel="stylesheet" type="text/css"
-	href="/ref/easyui/themes/gray/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="/ref/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="/ref/easyui/themes/gray/easyui.css">
+<link rel="stylesheet" type="text/css" href="/ref/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="/ref/layui/css/layui.css">
 <link rel="stylesheet" type="text/css" href="/ref/css/managerStyle.css">
 <script type="text/javascript" src="/ref/jquery/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="/ref/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript"
-	src="/ref/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/ref/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="/ref/layui/lay/dest/layui.all.js"></script>
 </head>
 <body>

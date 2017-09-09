@@ -9,6 +9,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<springframework.version>4.3.9.RELEASE</springframework.version>
+      <kotlin.version>1.2-M2</kotlin.version>
   </properties>
   
   <dependencies>
@@ -226,6 +227,19 @@
 	  </dependency>
 
 
+	  <!-- https://mvnrepository.com/artifact/org.htmlparser/htmlparser -->
+	  <dependency>
+		  <groupId>org.htmlparser</groupId>
+		  <artifactId>htmlparser</artifactId>
+		  <version>2.1</version>
+	  </dependency>
+
+	  <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
+	  <dependency>
+		  <groupId>commons-collections</groupId>
+		  <artifactId>commons-collections</artifactId>
+		  <version>3.2.1</version>
+	  </dependency>
 
 
 
@@ -247,11 +261,42 @@
 		  <artifactId>junit</artifactId>
 		  <version>RELEASE</version>
 	  </dependency>
-	  <!-- redis 配置 end -->
+
+      <!-- redis 配置 end -->
 
 
   </dependencies>
-  <build>
+
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray.kotlin.eap</id>
+            <name>Bintray Kotlin 1.2 EAP Repository</name>
+            <url>http://dl.bintray.com/kotlin/kotlin-eap-1.2</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray.kotlin.eap</id>
+            <name>Bintray Kotlin 1.2 EAP Repository</name>
+            <url>http://dl.bintray.com/kotlin/kotlin-eap-1.2</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+
+    <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
       <resource>
@@ -282,6 +327,50 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <version>${kotlin.version}</version>
+            <executions>
+                <execution>
+                    <id>compile</id>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>test-compile</id>
+                    <phase>test-compile</phase>
+                    <goals>
+                        <goal>test-compile</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <jvmTarget>1.8</jvmTarget>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>compile</id>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>testCompile</id>
+                    <phase>test-compile</phase>
+                    <goals>
+                        <goal>testCompile</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
 </project>

@@ -68,8 +68,4 @@ public class FileUploadController extends BaseController {
 		return RenderJson.Instance().ERROR().setMessage("操作失败,请检查文件");
 		
 	}
-	
-	
-	public static void main(String[] args) {
-	}
 }

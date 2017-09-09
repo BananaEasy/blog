@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import com.blog.model.Situation;
 import com.blog.mvc.dao.AccessRecordMapper;
 import com.blog.mvc.service.IFrendLinkService;
+import com.blog.redis.mvc.service.MessageHandle;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
@@ -35,8 +36,9 @@ public class FreemakerCache{
 	@Resource
 	private AccessRecordMapper accessRecordMapper;
 
+	@Resource
+	private MessageHandle messageHandle;
 
-	
 	@Resource
 	private ILabelService labelService;
 
@@ -84,7 +86,7 @@ public class FreemakerCache{
 		cache.put("frendLinkList",frendLinkService.selectAll());
 
 		Long articleCount = articleService.countAll();
-		Long messageCount = 0L;
+		Long messageCount = messageHandle.getCount();
 		Long accessCount = accessRecordMapper.countByExample();
 		Long commentCount = 0L;
 

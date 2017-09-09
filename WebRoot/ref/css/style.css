@@ -1,18 +1,13 @@
 body{
-	font-family: 'microsoft yahei'
-}
-
-div {
-	/* border: 1px solid #dbdbdb; */
+	font-family: 'microsoft yahei';
+	background: #FFFFFF url("/images/back.jpg") no-repeat fixed top;
 }
 
 /*blog - index */
-
 /*Banner*/
 .blog-banner-box {
 	margin-top: 20px;
-	color: white;
-	text-align: center;
+	text-align: left;
 	
 }
 .blog-banner{
@@ -29,6 +24,7 @@ div {
 /*内容区域*/
 .blog-content {
 	overflow: hidden;
+	margin-top: 80px;
 }
 /*菜单*/
 .blog-navbar {
@@ -162,12 +158,17 @@ div {
 	width:100%;
 	height:auto;
 	background-color:black;
-	text-align: center;
+	text-align: left;
 	color: white;
 	padding-top: 20px;
 	padding-bottom:20px;
-	
 }
+
+.blog-footer p{
+	font-size:0.8em;
+	color: #0d86c4;
+}
+
 
 
 
@@ -208,13 +209,17 @@ div {
 	margin-top: 20px;
 	min-height: 800px;
 }
+.blog-article-article-content * {
+	max-width: 100%;
+}
 .blog-article-article-content p{
 	line-height:1.5em;
     font: 18px "宋体", Arial, Helvetica, sans-serif;
+
 }
 .blog-article-article-content img{
 	margin:15px 0px;
-	width: 100%;
+
 }
 .blog-article-page{
 	margin-top: 40px;
@@ -316,6 +321,6 @@ textarea {
 	width: 100%;
 	height: 40px;
 	text-align: center;
-	background-color: #6a6a6a;
+	background-color: #BDBDBD;
 	line-height: 40px;
 }

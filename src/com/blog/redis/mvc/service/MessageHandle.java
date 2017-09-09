@@ -45,17 +45,24 @@ public class MessageHandle extends RedisBaseService<Message> {
         return message;
     }
 
-    private int size  = 10;
 
-    public List<Message> list(int page) {
+    public List<Message> list(int page,int size) {
         int start = (page-1) * size ;
         int stop =  start + size;
         List<Message> list = listOperations.range(listKey(), start, stop);
-        log.info("start:" + start + "---stop:" + stop + "----" +list);
+        //log.info("start:" + start + "---stop:" + stop + "----" +list);
         if(list.size() == 0){
             throw new MyException("无更多内容");
         }
         return list;
     }
 
+
+    public Long getCount (){
+        return  redisTemplate.opsForList().size(listKey());
+    }
+
+    public void leftPop(){
+        redisTemplate.opsForList().leftPop(listKey());
+    }
 }

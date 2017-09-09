@@ -1,7 +1,9 @@
 package com.blog.mvc;
 
 import com.blog.model.LoginUser;
+import com.blog.model.SiteMap;
 import com.blog.mvc.controller.BaseController;
+import com.blog.tool.JsonPares;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -20,52 +22,33 @@ import java.util.List;
 public class Constant {
 	
 	/**  文章条木显示个数  **/
-	
+	private static Log log  = LogFactory.getLog(Constant.class);
 	
 	public static Integer ARTICLE_ITEM_LENGTH = 8;
 
 
 	public static List<LoginUser> users = null ;
 
-	private static String jsonPath = BaseController.rootPath
+	public static SiteMap siteMap = null;
+
+
+	public static String userJsonPath = BaseController.rootPath
 			+ File.separator + "WEB-INF"
 			+ File.separator + "resoce"
 			+ File.separator + "User.json" ;
 
-	private static Log log  = LogFactory.getLog(Constant.class);
+	public static String seoJsonPath = BaseController.rootPath
+			+ File.separator + "WEB-INF"
+			+ File.separator + "resoce"
+			+ File.separator + "SiteMap.json" ;
 
 
 	static {
-		Type type = new TypeToken<List<LoginUser>>(){}.getType();
-		log.info("读取缓存列表" + type );
-		JsonReader reader = null;
-		FileInputStream fis = null;
-		InputStreamReader isr = null;
-		log.info("加载Json文件到内存中FilePath:" + jsonPath );
-		try {
-			fis = new FileInputStream(new File(jsonPath));
-			isr = new InputStreamReader(fis,"UTF-8");
-			reader = new JsonReader(isr);
-			reader.setLenient(true);
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			List<LoginUser> list = gson.fromJson(reader, type);
-			users = Collections.synchronizedList(new ArrayList<>(list));
-		}catch (Exception e){
-			e.printStackTrace();
-		}finally {
-			try{
-				if(isr!=null){
-					isr.close();
-				}
-				if(fis!=null){
-					fis.close();
-				}
-			}catch(Exception ee){
-				ee.printStackTrace();
-			}
-		}
-
+		log.info("加载json 文件");
+		users =  JsonPares.pares(userJsonPath,new TypeToken<List<LoginUser>>(){}.getType());
+		siteMap= JsonPares.pares(seoJsonPath,new TypeToken<SiteMap>(){}.getType());
+		log.info("Users:" + users);
+		log.info("siteMap:" + siteMap);
 	}
-
 
 }

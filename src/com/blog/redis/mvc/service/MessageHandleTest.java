@@ -65,7 +65,7 @@ public class MessageHandleTest {
     @Test
     public void list() throws Exception {
         MessageHandle  messageHandle =(MessageHandle)ac.getBean("messageHandle");
-        messageHandle.list(1);
+        messageHandle.list(1,10);
     }
 
 

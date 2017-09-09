@@ -130,6 +130,7 @@ public class ArticleService extends ArticleManagerService implements
 
 		ArticleExample articleExample = new ArticleExample();
 		ArticleExample.Criteria criteria = articleExample.createCriteria();
+		criteria.andIslockEqualTo(1);
 
 		//类别
 		if(	null != condition.getCid() ){
