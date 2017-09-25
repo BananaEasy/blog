@@ -22,12 +22,15 @@ public class SEOQuartz {
     @Scheduled(cron = "0 0 0 1/1 * ? ")//每天执行一次
     public void refreshSiteMap()  {
         try {
+            HtmlCrawler.create();
             ExtWebSiteMapUrl startUrl = HtmlCrawler.getStartUrl();
             Queue<ExtWebSiteMapUrl> queue = new LinkedList<ExtWebSiteMapUrl>();
             queue.add(startUrl);
             HtmlCrawler.crawl(queue, HtmlCrawler.wsg);
+            log.info("siteMap刷新成功");
         }catch (Exception e){
             e.printStackTrace();
+            log.info("siteMap刷新失败");
         }
     }
 }

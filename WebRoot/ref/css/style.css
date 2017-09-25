@@ -1,6 +1,8 @@
 body{
 	font-family: 'microsoft yahei';
-	background: #FFFFFF url("/images/back.jpg") no-repeat fixed top;
+	/*background: #FFFFFF url("/images/back.jpg") no-repeat fixed top;*/
+	/*background-size:100% 100%;*/
+	background: #FFFFFF;
 }
 
 /*blog - index */
@@ -118,7 +120,7 @@ body{
 }
 
 .blog-right-panel-group{
-	overflow: hidden;	
+	overflow: hidden;
 }
 
 .blog-right-panel-article{
@@ -159,15 +161,20 @@ body{
 	height:auto;
 	background-color:black;
 	text-align: left;
-	color: white;
 	padding-top: 20px;
 	padding-bottom:20px;
+
 }
 
-.blog-footer p{
+.blog-footer p,a{
 	font-size:0.8em;
-	color: #0d86c4;
+	color: white;
 }
+.blog-footer a:hover{
+	font-size:0.8em;
+	color: white;
+}
+
 
 
 
@@ -175,7 +182,6 @@ body{
 /*article.html*/
 .blog-article-article{
 	border-top:1px  solid #dbdbdb;
-
 }
 .blog-article-article-head{
 	padding-top: 20px;
@@ -208,15 +214,20 @@ body{
 	padding: 3%;
 	margin-top: 20px;
 	min-height: 800px;
+	background-color: #FFFFFF;
+	border-radius: 15px;
 }
+
+
 .blog-article-article-content * {
 	max-width: 100%;
 }
+
 .blog-article-article-content p{
 	line-height:1.5em;
     font: 18px "宋体", Arial, Helvetica, sans-serif;
-
 }
+
 .blog-article-article-content img{
 	margin:15px 0px;
 
@@ -227,43 +238,12 @@ body{
 }
 
 .blog-article-comment{
-	padding: 30px 10px;
-}
-.blog-article-comment-content{
-	width: 40;
-	height: 100;
-}
-.blog-article-comment-nobody{
-	width: 40%;
-	height: auto;
-	margin: 0 auto;
-	text-align: center;
-}
-
-.blog-article-comment-nobody img{
 	width: 100%;
+	padding: 3%;
+	margin-top:20px;
+	background-color: #FFFFFF;
+	border-radius: 15px;
 }
-
-
-.blog-article-comment-list{
-	width: 100%;
-	height: auto;
-}
-
-
-
-.blog-article-comment-body{
-	 border: 1px solid #dbdbdb; 
-	background-color:#fbfbfb;
-	margin-bottom: 20px;
-	padding: 30px;
- 	-moz-border-radius: 15px; 
-    -webkit-border-radius: 15px; 
-    border-radius:15px;           
-}
-
-
-
 
 /**--------------------Message  留言板---------------------**/
 textarea {

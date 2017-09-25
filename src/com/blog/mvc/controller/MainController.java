@@ -93,33 +93,7 @@ public class MainController extends BaseController{
 		model.addAttribute("article", articleService.show(id));
 		return "blog/article.ftl";
 	}
-	
-	
-	
-	
-	/**
-	 * 评论
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="/comment.action" ,method={RequestMethod.GET})
-	@ResponseBody
-	public RenderJson comment(Model model) {
-		return null;
-	}
-	
-	
-	/**
-	 * 获取评论
-	 * @param model
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value="/getComment.action" ,method={RequestMethod.GET})
-	@ResponseBody
-	public RenderJson getComment(Model model,Integer id) {
-		return null;
-	}
+
 
 
 	/**
@@ -130,11 +104,9 @@ public class MainController extends BaseController{
 
 
 		if(!(StringUtils.isBlank(name) || StringUtils.isBlank(password))){
-
 			LoginUser loginUser = new LoginUser(name,password);
-
 			log.info("登陆User:" + loginUser);
-			if(Constant.users.contains(loginUser)){
+			if(Constant.getUsers().contains(loginUser)){
 				request.getSession().setAttribute("userLogin",loginUser);
 			}
 		}

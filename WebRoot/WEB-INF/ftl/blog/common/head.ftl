@@ -13,18 +13,6 @@
 		    </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<#--<ul class="nav navbar-nav navbar-right">-->
-						<#--<li class="dropdown"><a href="#" class="dropdown-toggle"-->
-							<#--data-toggle="dropdown" role="button" aria-haspopup="true"-->
-							<#--aria-expanded="false">切换主题 <span class="caret"></span></a>-->
-							<#--<ul class="dropdown-menu">-->
-								<#--<li><a href="#">原始</a></li>-->
-								<#--<li><a href="#">蓝色</a></li>-->
-								<#--<li><a href="#">绿色</a></li>-->
-							<#--</ul></li>-->
-						<#--<li><a href="#">关于我们</a></li>-->
-					<#--</ul>-->
-
                 <ul class="nav navbar-nav navbar-right">
                     <form  class="navbar-form navbar-right blog-banner-form" action="/s/search.html" method="post" role="search">
                         <div class="form-group">

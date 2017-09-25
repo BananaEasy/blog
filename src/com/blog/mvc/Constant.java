@@ -27,11 +27,6 @@ public class Constant {
 	public static Integer ARTICLE_ITEM_LENGTH = 8;
 
 
-	public static List<LoginUser> users = null ;
-
-	public static SiteMap siteMap = null;
-
-
 	public static String userJsonPath = BaseController.rootPath
 			+ File.separator + "WEB-INF"
 			+ File.separator + "resoce"
@@ -42,13 +37,12 @@ public class Constant {
 			+ File.separator + "resoce"
 			+ File.separator + "SiteMap.json" ;
 
+	public static List<LoginUser> getUsers() {
+		return JsonPares.pares(userJsonPath,new TypeToken<List<LoginUser>>(){}.getType());
+	}
 
-	static {
-		log.info("加载json 文件");
-		users =  JsonPares.pares(userJsonPath,new TypeToken<List<LoginUser>>(){}.getType());
-		siteMap= JsonPares.pares(seoJsonPath,new TypeToken<SiteMap>(){}.getType());
-		log.info("Users:" + users);
-		log.info("siteMap:" + siteMap);
+	public static SiteMap getSiteMap() {
+		return JsonPares.pares(seoJsonPath,new TypeToken<SiteMap>(){}.getType());
 	}
 
 }

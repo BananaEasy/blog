@@ -1,5 +1,6 @@
 package com.blog.tool.seo;
 
+import com.blog.model.SiteMap;
 import com.blog.mvc.Constant;
 import com.redfin.sitemapgenerator.ChangeFreq;
 import com.redfin.sitemapgenerator.W3CDateFormat;
@@ -38,11 +39,21 @@ public class HtmlCrawler {
     public static Parser parser = new Parser();
     public static WebSitemapGenerator wsg = null;
     private static Log log = LogFactory.getLog(HtmlCrawler.class);
+    private static SiteMap siteMap;
 
-    static {
-        dir =new File(Constant.siteMap.getDir());
-        basePrefix = Constant.siteMap.getBasePrefix();
-        mainUrl = Constant.siteMap.getMainUrl();
+
+    /**
+     *
+     */
+    public static void create (){
+        siteMap = Constant.getSiteMap();
+        dir =new File(siteMap.getDir());
+        File temp = new File (dir + "sitemap.xml");
+        if(temp.exists()){
+            temp.delete();
+        }
+        basePrefix = siteMap.getBasePrefix();
+        mainUrl = siteMap.getMainUrl();
 
         W3CDateFormat dateFormat = new W3CDateFormat(W3CDateFormat.Pattern.DAY);
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8"));
@@ -70,7 +81,7 @@ public class HtmlCrawler {
      */
     public static boolean check(String url, String basePrefix) {
         if(StringUtils.isNotBlank(url)){
-            String[] filter = Constant.siteMap.getFilter();
+            String[] filter = siteMap.getFilter();
             if(filter != null && filter.length != 0){
                 for(String s :filter){
                     if(url.contains(s)){
@@ -78,6 +89,7 @@ public class HtmlCrawler {
                     }
                 }
             }
+            log.info(url);
             return url.startsWith(basePrefix);
         }else{
             return false;

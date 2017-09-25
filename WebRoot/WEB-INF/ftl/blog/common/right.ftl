@@ -1,12 +1,5 @@
 <div class="blog-right-panel-group">
-    <div class="panel panel-default blog-right-panel-article">
-        <div class="panel-heading">
-			<strong>小航博客微信公众号</strong>
-        </div>
-        <div class="panel-body">
-            <p><img src="/images/weixin.jpg" style="width: 100%"/></p>
-        </div>
-    </div>
+
 	<#if (hotArticleList?size > 0)>
 		<div class="panel panel-default blog-right-panel-article">
 			<div class="panel-heading">热门文章</div>
@@ -71,5 +64,14 @@
 			<li class="list-group-item">评论个数:${situation.commentCount!"0"}</li>
 			<li class="list-group-item">文章个数:${situation.articleCount!"0"}</li>
 		</ul>
+	</div>
+
+	<div class="panel panel-default blog-right-panel-article">
+		<div class="panel-heading">
+			<strong>微信公众号</strong>
+		</div>
+		<div class="panel-body">
+			<p><img src="/images/weixin.jpg" style="width: 100%"/></p>
+		</div>
 	</div>
 </div>

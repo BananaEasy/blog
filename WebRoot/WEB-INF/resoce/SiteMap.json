@@ -2,5 +2,5 @@
   "dir":"D://",
   "basePrefix":"http://lihang.xyz",
   "mainUrl":"http://lihang.xyz/index.html",
-  "filter":["login","doc"]
+  "filter":["login","doc","qq"]
 }
