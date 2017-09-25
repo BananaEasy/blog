@@ -166,7 +166,11 @@ body{
 
 }
 
-.blog-footer p,a{
+.blog-footer p{
+	font-size:0.8em;
+	color: white;
+}
+.blog-footer a{
 	font-size:0.8em;
 	color: white;
 }

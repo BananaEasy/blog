@@ -3,6 +3,12 @@
 /* Created on:     2017/6/24 22:29:20                           */
 /*==============================================================*/
 
+/*创建用户*/
+CREATE USER 'myblog'@'localhost' IDENTIFIED BY 'a123520';
+grant all privileges on myblog.* to 'myblog'@'localhost'identified by 'a123520';
+flush privileges;
+
+
 
 DROP TABLE IF EXISTS ACCESS_RECORD;
 
