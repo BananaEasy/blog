@@ -1,7 +1,5 @@
 body{
 	font-family: 'microsoft yahei';
-	/*background: #FFFFFF url("/images/back.jpg") no-repeat fixed top;*/
-	/*background-size:100% 100%;*/
 	background: #FFFFFF;
 }
 
@@ -10,8 +8,8 @@ body{
 .blog-banner-box {
 	margin-top: 20px;
 	text-align: left;
-	
 }
+
 .blog-banner{
 	
 }
@@ -49,6 +47,10 @@ body{
 	font: 400 16px/1.62 "Georgia", "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
 	border-radius:15px;
 }
+.blog-article:hover{
+	border: 1px solid #b7d2ff;
+}
+
 .blog-article-head{
 	
 }
@@ -57,6 +59,11 @@ body{
 	width: 100%;
 	height: auto;
 }
+.blog-article-head-title a:hover{
+	text-decoration:none;
+}
+
+
 .blog-article-head-meta{
 	margin-top: 40px;
 	width: 100%;
@@ -67,6 +74,7 @@ body{
 }
 .blog-article-head-meta td{
 	padding: 5px;
+	font-size: 15px;
 }
 
 .blog-article-content{
@@ -78,23 +86,30 @@ body{
 	margin-top: 30px;
 }
 .blog-article-content-img img{
-	 width: 100%;
+	width: 100%;
 	vertical-align: middle;
+	border-radius: 15px;
 }
 
 .blog-article-content-content{
-	    margin: 30px 0;
-	    
+	margin: 30px 0;
 }
-.blog-article-content-content p{
-    color: #444443;
-    font-size:18px;/*字体大小*/  
-    text-indent:2em;/*首行缩进两个单位*/  
-    line-height:1.5em;/*行距为1.5个单位*/  
-    padding:10px;/*用内边距代替外边距来设置段间距*/  
-    margin:0;/*去掉默认的段间距*/  
 
+.blog-article-content-content p{
+	font-size: 16px;
+    text-indent:2em;
+    line-height:1.5em;
+    padding:10px;
+    margin:0;
 }
+.default-p{
+	font-size: 16px;
+	text-indent:2em;
+	line-height:1.5em;
+	padding:10px;
+	margin:0;
+}
+
 .blog-article-content-show {
 	padding-bottom: 15px;
 }
@@ -114,7 +129,7 @@ body{
     white-space: nowrap;
     vertical-align: middle;
     padding: 10px 16px;
-    font-size: 18px;
+    font-size: 15px;
     line-height: 1.3333333;
     float: left;
 }
@@ -126,9 +141,11 @@ body{
 .blog-right-panel-article{
 		 
 }
-
-.blog-right-panel-label{
-	min-height: 200px;	
+.blog-right-panel-article-list{
+	width: 100%;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
 }
 
 
@@ -140,12 +157,13 @@ body{
 
 .blog-right-panel-label-body a{
 	margin-top: 5px;
+	display: inline-block;
 }
 
-.blog-right-panel-time ul{
+.blog-right-panel-label ul{
 	text-align: center;	
 }
-.blog-right-panel-time span{
+.blog-right-panel-label span{
 	margin-left: 15px;	
 }
 
@@ -234,8 +252,9 @@ body{
 
 .blog-article-article-content img{
 	margin:15px 0px;
-
 }
+
+
 .blog-article-page{
 	margin-top: 40px;
 	padding-bottom: 40px;

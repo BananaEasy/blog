@@ -16,7 +16,7 @@
 <#include "common/head.ftl"/>
     <ol class="breadcrumb blog-breadcrumb">
         <li><a href="/">主页</a></li>
-        <li><a href="/c/cid/${article.index.category.id!""}.html">${article.index.category.name !}</a></li>
+        <li><a href="/category/${article.index.category.id!""}">${article.index.category.name !}</a></li>
         <li>文章</li>
     </ol>
 
@@ -28,7 +28,7 @@
                     <div class="blog-article-article-head-meta">
                         <table>
                             <tr>
-                                <td>作者:${article.index.articleusername !"未知"}</td>
+                                <td class="hidden-xs">作者:${article.index.articleusername !"未知"}</td>
                                 <td>时间:${article.index.createtime ?string("yyyy年MM月dd")}</td>
                                 <td>浏览次数:${article.index.count!"0"}</td>
                             </tr>
@@ -38,18 +38,21 @@
 
                 <div class="row">
                     <div class="blog-article-article-content">
-                    ${article.index.articlecontent !""}
+                    <blockquote>
+                        <p class="text-warning default-p">${article.index.articleprompt!""}</p>
+                    </blockquote>
+                        ${article.index.articlecontent !""}
                     </div>
                     <div class="blog-article-article-head-meta">
                         <table>
                             <tr>
                                 <td>标签:<a
-                                        href="/c/lid/${article.index.lable.id!""}.html">${article.index.lable.name!"未知"}</a>
+                                        href="/label/${article.index.label.id!""}">${article.index.label.name!"未知"}</a>
                                 </td>
                                 <td>分类:<a
-                                        href="/c/cid/${article.index.category.id!""}.html">${article.index.category.name!"未知"}</a>
+                                        href="/category/${article.index.category.id!""}">${article.index.category.name!"未知"}</a>
                                 </td>
-                                <td>文章来源:<a
+                                <td class="hidden-xs">文章来源:<a
                                         href="${article.index.articlehref!"javascript:;"}">${article.index.articlehreftitle!""}</a>
                                 </td>
                             </tr>
@@ -60,20 +63,23 @@
                         <div id="SOHUCS" sid="${article.index.id!}"></div>
                     </div>
                 </div>
-
-
-
             </div>
-
             <div class="blog-article-page">
                 <p>
-                    上一篇:<#if article.pre?? ><a href="/${article.pre.id!}.html">${article.pre.articletitle!}</a><#else>
-                    <span>无</span>  </#if>
+                    上一篇:
+                    <#if article.pre?? >
+                        <a href="/article/${article.pre.id!}">${article.pre.articletitle!}</a>
+                    <#else>
+                        <span>无</span>
+                    </#if>
                 </p>
                 <p>
-                    下一篇:<#if article.next?? > <a
-                        href="/${article.next.id!}.html">${article.next.articletitle!}</a> <#else>
-                    <span>没有更多了</span> </#if>
+                    下一篇:
+                    <#if article.next?? >
+                        <a href="/article/${article.next.id!}">${article.next.articletitle!}</a>
+                    <#else>
+                        <span>没有更多了</span>
+                    </#if>
                 </p>
             </div>
 

@@ -8,17 +8,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>博客管理-后台</title>
-<link rel="stylesheet" type="text/css" href="/ref/easyui/themes/gray/easyui.css">
-<link rel="stylesheet" type="text/css" href="/ref/easyui/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="/ref/layui/css/layui.css">
-<link rel="stylesheet" type="text/css" href="/ref/css/managerStyle.css">
+<link rel="stylesheet" type="text/css" href="/ref/easyui/themes/insdep/easyui.css">
+<link rel="stylesheet" type="text/css" href="/ref/easyui/themes/insdep/easyui_animation.css">
+<link rel="stylesheet" type="text/css" href="/ref/easyui/themes/insdep/easyui_plus.css">
+<link rel="stylesheet" type="text/css" href="/ref/easyui/themes/insdep/insdep_theme_default.css">
+<link rel="stylesheet" type="text/css" href="/ref/easyui/themes/insdep/icon.css">
+
 <script type="text/javascript" src="/ref/jquery/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="/ref/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="/ref/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/ref/easyui/themes/insdep/jquery.insdep-extend.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/ref/layui/css/layui.css">
+<link rel="stylesheet" type="text/css" href="/ref/css/managerStyle.css">
 <script type="text/javascript" src="/ref/layui/lay/dest/layui.all.js"></script>
 </head>
-<body>
-	<div class="easyui-layout layout-centent">
+<body class="easyui-layout">
 		<div data-options="region:'north',title:''"
 			class="layout-centent-head">
 			<h1>博客后台管理</h1>
@@ -29,19 +32,17 @@
 				<div title="博客后台功能" data-options="selected:true,border:false"
 					class="layout-centent-left-accordion-list">
 					<a href="javascript:_index_js.articleManager();"
-						class="easyui-linkbutton">文章管理</a> <a
+						class="easyui-linkbutton button-line-blue button-line-unbackground">文章管理</a> <a
 						href="javascript:_index_js.articleManager();"
-						class="easyui-linkbutton">爬虫管理</a> <a
+						class="easyui-linkbutton button-line-blue button-line-unbackground">爬虫管理</a> <a
 						href="javascript:_index_js.massageManager();"
-						class="easyui-linkbutton">留言管理</a> <a
-						href="javascript:_index_js.commentManager();"
-						class="easyui-linkbutton">评论管理</a> <a
+						class="easyui-linkbutton button-line-blue button-line-unbackground">留言管理</a>  <a
 						href="javascript:_index_js.accessRecordManager();"
-						class="easyui-linkbutton">访问记录</a> <a
+						class="easyui-linkbutton button-line-blue button-line-unbackground">访问记录</a> <a
 						href="javascript:_index_js.frendLinkManager();"
-						class="easyui-linkbutton">友情链接</a> <a
+						class="easyui-linkbutton button-line-blue button-line-unbackground">友情链接</a> <a
 						href="javascript:_index_js.systemManager();"
-						class="easyui-linkbutton">系统设置</a>
+						class="easyui-linkbutton button-line-blue button-line-unbackground">系统设置</a>
 				</div>
 			</div>
 		</div>
@@ -51,7 +52,6 @@
 				data-options="justified:true" style="width: 100%; height: 100%;">
 			</div>
 		</div>
-	</div>
 </body>
 
 <script type="text/javascript">
@@ -70,11 +70,6 @@
 			var _title = "留言管理";
 			_index_js.addTab(_href, _title);
 
-		},
-		commentManager : function() {
-			var _href = "/admin/commentManager/index.action";
-			var _title = "评论管理";
-			_index_js.addTab(_href, _title);
 		},
 		accessRecordManager : function() {
 			var _href = "/admin/accessRecordManager/index.action";

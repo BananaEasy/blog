@@ -26,7 +26,7 @@ public class AccessRecordQuartz {
 
     private   Logger log = LoggerFactory.getLogger(((getClass())));
 
-    private static  Queue<AccessRecord> queue = new ConcurrentLinkedDeque<AccessRecord>();
+    private static  Queue<AccessRecord> queue = new ConcurrentLinkedDeque<>();
 
 
     public AccessRecordQuartz(){
@@ -48,10 +48,14 @@ public class AccessRecordQuartz {
         try{
             if(queue.size() > 0){
                 for(int i=0; i<10; i++){
-                    AccessRecord ar = getAccessRecord();
-                    if(null != ar){
-                        log.info("保存系统日志到数据库");
-                        accessRecordMapper.insert(ar);
+                    AccessRecord ac = getAccessRecord();
+                    if(null != ac){
+                        if((!ac.getRequestpath().contains("admin"))&& (!ac.getRequestpath().contains("error"))
+                           && (!ac.getRequestpath().contains("login"))
+                                ){
+                            log.info(" accessRecord\tsave:\t" + ac.toString());
+                            accessRecordMapper.insert(ac);
+                        }
                     } else{
                         break;
                     }
@@ -60,6 +64,7 @@ public class AccessRecordQuartz {
 
         }catch (Exception e){
            log.error(e.getMessage());
+           e.printStackTrace();
         }
     }
 
@@ -97,8 +102,10 @@ public class AccessRecordQuartz {
             ar.setAccept( accept);
             ar.setConnection( connection);
             ar.setId(UUIDUtils.getUUID());
-
             add(ar);
         }
+
+
+
 
 }

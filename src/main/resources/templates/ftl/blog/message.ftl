@@ -17,7 +17,7 @@
 	<div class="container blog-content">
 	<#include "common/head.ftl">
 		<ol class="breadcrumb blog-breadcrumb">
-			<li><a href="/index.html">主页</a></li>
+			<li><a href="/index">主页</a></li>
 			<li>留言板</li>
 		</ol>
 		<div class="blog-message">
@@ -92,7 +92,7 @@
         $(".blog-message-content-bottom").text("加载中...");
 		setTimeout(function () {
             $.ajax({
-                url:"/message/commontList.html",
+                url:"/message/commontList",
                 method:"POST",
                 dataType : "json",
                 data:{"p":p},
@@ -168,7 +168,7 @@
             }
 			$("#content").val(filterXSS(editor.txt.html()));
 			$.ajax({
-				url:"/message/commont.html",
+				url:"/message/commont",
 				method:"POST",
                 dataType : "json",
                 data:$("#messageForm").serialize(),
@@ -188,10 +188,5 @@
 			});
         });
 	});
-
-
-
 </script>
-
-
 </html>

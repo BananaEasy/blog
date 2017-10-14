@@ -23,7 +23,7 @@ public class ManagerFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse)servletResponse;
         Object userLogin = httpServletRequest.getSession().getAttribute("userLogin");
         if(userLogin == null){
-            httpServletResponse.sendRedirect("/login.jsp");
+            httpServletResponse.sendRedirect("/login");
             return;
         }
         filterChain.doFilter(servletRequest,servletResponse);

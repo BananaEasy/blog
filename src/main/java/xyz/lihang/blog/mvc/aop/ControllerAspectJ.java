@@ -1,5 +1,8 @@
 package xyz.lihang.blog.mvc.aop;
 
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import xyz.lihang.blog.annotation.ControllerInvok;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +10,9 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
+import xyz.lihang.blog.mvc.quartz.AccessRecordQuartz;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 
@@ -38,9 +43,17 @@ public class ControllerAspectJ {
     @Before("controllerAspect()")
     public void doBefore(JoinPoint joinPoint)
     {
-        String targetName = joinPoint.getTarget().getClass().getName();
-        String methodName = joinPoint.getSignature().getName();
-        log.info("ClassName:" + targetName +"--------Method:"+ methodName);
+        try{
+            RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+            ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+            HttpServletRequest request = sra.getRequest();
+            String targetName = joinPoint.getTarget().getClass().getName();
+            String methodName = joinPoint.getSignature().getName();
+            log.info("RequestURI:" + request.getRequestURI()  + "\tClassName:" + targetName +"\t Method:"+ methodName);
+            AccessRecordQuartz.createAccessRecord(request);
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
     }
 
 }

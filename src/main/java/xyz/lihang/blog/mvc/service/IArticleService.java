@@ -7,7 +7,7 @@ import xyz.lihang.blog.model.Condition;
 import xyz.lihang.blog.mvc.entity.Article;
 
 public interface IArticleService extends IArticleManagerService {
-	//
+
 	List<Article>  getIndexItem();
 	
 	
@@ -63,7 +63,11 @@ public interface IArticleService extends IArticleManagerService {
 	  */
 	 List<ArticleMonths> groupByMonth();
 
-
+	/**
+	 * 按条件获取
+	 * @param condition
+	 * @return
+	 */
 	List<Article> getItem(Condition condition);
 	
 }

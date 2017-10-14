@@ -7,8 +7,11 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
 import javax.servlet.MultipartConfigElement;
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -52,5 +55,4 @@ public class ApplicationConfig {
         sqlSessionFactoryBean.setTypeAliasesPackage("xyz.lihang.blog.mvc.entity");
         return sqlSessionFactoryBean.getObject();
     }
-
 }

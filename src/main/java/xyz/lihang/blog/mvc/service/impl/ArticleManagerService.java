@@ -78,7 +78,7 @@ public class ArticleManagerService extends BaseService<Article> implements
 	@Override
 	public Article loadLabel (Article article){
 		if(article != null && article.getLabelId()!= null){
-			article.setLable(labelMapper.selectByPrimaryKey(article.getLabelId()));
+			article.setLabel(labelMapper.selectByPrimaryKey(article.getLabelId()));
 		}
 		return article;
 	}

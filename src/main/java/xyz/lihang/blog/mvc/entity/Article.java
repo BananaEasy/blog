@@ -7,6 +7,11 @@ import xyz.lihang.blog.annotation.DataFinal;
 import xyz.lihang.blog.mvc.extend.DevelopArticle;
 
 public class Article extends DevelopArticle implements Serializable{
+    /**
+     * 锁定标记
+     */
+    public static final int LOCK_FLAG = 1;
+
 	@DataFinal
     private Integer id;
 

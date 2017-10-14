@@ -21,9 +21,9 @@
 					<article class="blog-article">
 						<div class="blog-article-head">
 							<div class="blog-article-head-title">
-								<h1>
-									<a href="/${articleModel.id !""}.html">${articleModel.articletitle !"未知"}</a>
-								</h1>
+								<h2>
+									<a href="/article/${articleModel.id !""}">${articleModel.articletitle !"未知"}</a>
+								</h2>
 							</div>
 							<div class="blog-article-head-meta">
 								<table>
@@ -38,22 +38,24 @@
 						<div class="blog-article-content">
 							<#if articleModel.articletitleimagepath1 ?? >
 								<div class="blog-article-content-img">
-									<a href="/${articleModel.id !""}.html"> <img alt="" src="${articleModel.articletitleimagepath1}" />
+									<a href="/article/${articleModel.id !""}"> <img alt="" src="${articleModel.articletitleimagepath1}" />
 									</a>
 								</div>
 							</#if>
 							<div class="blog-article-content-content">
-								<p>${articleModel.articleprompt!""}</p>
+                                <blockquote>
+									<p class="text-warning default-p">${articleModel.articleprompt!""}</p>
+								</blockquote>
 							</div>
 							<div class="blog-article-content-show">
-								<a type="button" class=" btn-primary btn-lg" href="/${articleModel.id !""}.html">阅读全文</a>
+								<a type="button" class=" btn-primary btn-lg" href="/article/${articleModel.id !""}">阅读全文</a>
 							</div>
 							<hr />
 							<div class="blog-article-head-meta">
 								<table>
 									<tr>
-										<td>标签:<a href="/c/lid/${articleModel.lable.id!""}.html">${articleModel.lable.name!"未知"}</a></td>
-										<td>分类:<a href="/c/cid/${articleModel.category.id!""}.html">${articleModel.category.name!"未知"}</a></td>
+										<td>标签:<a href="/label/${articleModel.label.id!""}">${articleModel.label.name!"未知"}</a></td>
+										<td>分类:<a href="/category/${articleModel.category.id!""}">${articleModel.category.name!"未知"}</a></td>
 										<td class="hidden-xs">文章来源:<a href="${articleModel.articlehref!"javascript:;"}">${articleModel.articlehreftitle!""}</a></td>
 									</tr>
 								</table>
@@ -64,9 +66,9 @@
 					<#if ( pageInfo ??) >
 					<div class="blog-content-page">
 						<div class="btn-group btn-group-lg" role="group">
-							<#if (pageInfo.hasPreviousPage) ><a type="button" class="btn btn-default" href="/index-${pageInfo.prePage}.html"><strong>上一页</strong></a></#if>
+							<#if (pageInfo.hasPreviousPage) ><a type="button" class="btn btn-default" href="?p=${pageInfo.prePage}"><strong>上一页</strong></a></#if>
 							<span><strong>第${pageInfo.pageNum}页/共${pageInfo.pages}页</strong></span> 
-							<#if (pageInfo.hasNextPage)><a type="button" class="btn btn-default" href="/index-${pageInfo.nextPage}.html" ><strong>下一页</strong></a></#if>
+							<#if (pageInfo.hasNextPage)><a type="button" class="btn btn-default" href="?p=${pageInfo.nextPage}" ><strong>下一页</strong></a></#if>
 						</div>
 					</div>
 					</#if>

@@ -12,18 +12,20 @@ import xyz.lihang.blog.mvc.entity.Label;
 public class DevelopArticle {
 	
 	
-	private Label lable;
+	private Label label;
 	
 	
 	private Category category;
-	
-	
-	public Label getLable() {
-		return lable;
+
+
+	public Label getLabel() {
+		return label;
 	}
-	public void setLable(Label lable) {
-		this.lable = lable;
+
+	public void setLabel(Label label) {
+		this.label = label;
 	}
+
 	public Category getCategory() {
 		return category;
 	}

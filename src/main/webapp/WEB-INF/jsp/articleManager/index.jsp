@@ -76,7 +76,7 @@
 						title : '标签',
 						width : 100,
 						formatter : function(value, row, index) {
-							return  (row.lable==null || row.lable.name== null)?"":row.lable.name;
+							return  (row.label==null || row.label.name== null)?"":row.label.name;
 						}
 					}
 					,{

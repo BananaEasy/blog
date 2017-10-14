@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ManagerController extends BaseController{
 	@RequestMapping(value="/index.action" ,method={RequestMethod.GET})
-	public String index(Model model){
+	public String index(){
 		return "manager/manager.jsp";
 	}
 }

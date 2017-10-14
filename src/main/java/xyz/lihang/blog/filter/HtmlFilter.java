@@ -2,7 +2,6 @@ package xyz.lihang.blog.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import xyz.lihang.blog.mvc.quartz.AccessRecordQuartz;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +15,9 @@ import java.util.regex.Pattern;
 /**
  * Created by LiHang on 2017/8/6.
  */
-@Component
 public class HtmlFilter implements Filter {
 
-    static final Logger log = LoggerFactory.getLogger(((HtmlFilter.class)));
+    static final Logger log = LoggerFactory.getLogger(HtmlFilter.class);
 
     static Map<String,String> urlrewrite ;
 

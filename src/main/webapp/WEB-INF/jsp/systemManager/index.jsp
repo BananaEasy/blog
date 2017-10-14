@@ -55,7 +55,7 @@ _systemManager_Js = {
 							if(row.link.indexOf("javascript") != -1){
 								return row.link;
 							}
-							return "/c/cid/" + row.id + ".html";
+							return "/category/" + row.id ;
 						}},
 						{field:'rank',title:'类别等级',width:80, editor:'text'},
 					   /*  {field:'parentid',title:'父类别',width:100, editor:'text'},   */

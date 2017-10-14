@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+import xyz.lihang.blog.filter.AccessRecordFilter;
 import xyz.lihang.blog.filter.HtmlFilter;
 import xyz.lihang.blog.filter.ManagerFilter;
 
@@ -29,7 +30,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
     //转发设置
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("/").setViewName("forward:/index.html");
+        registry.addViewController("/").setViewName("forward:/index");
         registry.addViewController("/admin/").setViewName("forward:/admin/index.action");
     }
 
@@ -64,26 +65,18 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
         characterEncodingFilter.setEncoding("UTF-8");
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(characterEncodingFilter);
         filterRegistrationBean.addUrlPatterns("/*");
+        filterRegistrationBean.setOrder(0);
         return filterRegistrationBean;
     }
-
 
     //权限限制过滤器
     @Bean
     public FilterRegistrationBean ManagerFilterRegistrationBean(ManagerFilter managerFilter){
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(managerFilter);
         filterRegistrationBean.addUrlPatterns("/admin/*");
+        filterRegistrationBean.setOrder(1);
         return filterRegistrationBean;
     }
-
-    //url地址美化
-    @Bean
-    public FilterRegistrationBean HtmlFilterRegistrationBean(HtmlFilter htmlFilter){
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(htmlFilter);
-        filterRegistrationBean.addUrlPatterns("*.html");
-        return filterRegistrationBean;
-    }
-
 
     //json
     @Bean(name = "httpMessageConverter")

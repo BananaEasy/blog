@@ -17,6 +17,8 @@ import org.htmlparser.tags.LinkTag;
 import org.htmlparser.util.NodeIterator;
 import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
+import xyz.lihang.blog.tool.utils.FileUtils;
+import xyz.lihang.blog.tool.utils.PathUtils;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -48,8 +50,8 @@ public class HtmlCrawler {
      */
     public static void create (){
         siteMap = Constant.getSiteMap();
-        dir =new File(siteMap.getDir());
-        File temp = new File (dir + "sitemap.xml");
+        dir =new File(PathUtils.getWebRootPath());
+        File temp = new File (dir +  File.separator +"sitemap.xml");
         if(temp.exists()){
             temp.delete();
         }
@@ -73,7 +75,7 @@ public class HtmlCrawler {
                         new Date()).priority(0.9).changeFreq(ChangeFreq.WEEKLY));
     }
 
-    /** *//**
+    /**
      * 检测是否为同一个域下的url
      *
      * @param url
@@ -82,11 +84,11 @@ public class HtmlCrawler {
      */
     public static boolean check(String url, String basePrefix) {
         if(StringUtils.isNotBlank(url)){
-            String[] filter = siteMap.getFilter();
-            if(filter != null && filter.length != 0){
-                for(String s :filter){
+            String[] contains = siteMap.getContains();
+            if(contains != null && contains.length > 0){
+                for(String s :contains){
                     if(url.contains(s)){
-                        return false;
+                        return url.startsWith(basePrefix);
                     }
                 }
             }
@@ -144,7 +146,6 @@ public class HtmlCrawler {
                 }
             }
         } while (queue.size() > 0);
-
         wsg.write();
     }
 }

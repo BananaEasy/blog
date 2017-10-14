@@ -80,7 +80,7 @@ public class RenderJson {
 	}
 
 	public static RenderJson defaultSuccess(){
-		return new RenderJson().SUCCESS().defaultSuccess();
+		return new RenderJson().SUCCESS().defaultSuccessMessage();
 	}
 
 }

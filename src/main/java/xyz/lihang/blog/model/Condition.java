@@ -5,8 +5,6 @@ package xyz.lihang.blog.model;
  */
 public class Condition {
 
-    private String search;
-
     //类别id
     private Integer cid;
 
@@ -16,43 +14,38 @@ public class Condition {
 
     private String date;
 
-    public String getSearch() {
-        return search;
-    }
-
-    public void setSearch(String search) {
-        this.search = search;
-    }
 
     public Integer getCid() {
         return cid;
     }
 
-    public void setCid(Integer cid) {
+    public Condition setCid(Integer cid) {
         this.cid = cid;
+        return  this;
     }
 
     public Integer getLid() {
         return lid;
     }
 
-    public void setLid(Integer lid) {
+    public Condition setLid(Integer lid) {
         this.lid = lid;
+        return  this;
     }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public Condition setDate(String date) {
         this.date = date;
+        return  this;
     }
 
     @Override
     public String toString() {
         return "Condition{" +
-                "search='" + search + '\'' +
-                ", cid=" + cid +
+                " cid=" + cid +
                 ", lid=" + lid +
                 ", date='" + date + '\'' +
                 '}';
