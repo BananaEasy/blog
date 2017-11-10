@@ -25,7 +25,6 @@ public abstract class BaseService<T> implements IBaseService<T> {
 	@Override
 	@Transactional
 	public int deleteByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
 		return baseMapper.deleteByPrimaryKey(id);
 	}
 
@@ -78,13 +77,11 @@ public abstract class BaseService<T> implements IBaseService<T> {
 
 	@Override
 	public List<T> selectAll() {
-		// TODO Auto-generated method stub
 		return baseMapper.selectByExample();
 	}
 
 	@Override
 	public long countAll() {
-		// TODO Auto-generated method stub
 		return baseMapper.countByExample();
 	}
 	

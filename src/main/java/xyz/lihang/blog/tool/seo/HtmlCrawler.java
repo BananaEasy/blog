@@ -83,20 +83,19 @@ public class HtmlCrawler {
      * @return
      */
     public static boolean check(String url, String basePrefix) {
-        if(StringUtils.isNotBlank(url)){
+        if(StringUtils.isNotBlank(url)) {
             String[] contains = siteMap.getContains();
-            if(contains != null && contains.length > 0){
-                for(String s :contains){
-                    if(url.contains(s)){
+            if (contains != null && contains.length > 0) {
+                for (String s : contains) {
+                    if (url.contains(s)) {
                         return url.startsWith(basePrefix);
                     }
                 }
             }
             log.info(url);
-            return url.startsWith(basePrefix);
-        }else{
-            return false;
         }
+        return false;
+
     }
 
     /** *//**

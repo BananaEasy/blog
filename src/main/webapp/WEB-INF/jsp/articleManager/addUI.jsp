@@ -97,7 +97,7 @@
 			      <label class="layui-form-label">来自链接</label>
 				<div class="layui-input-inline">
 					<input type="text" name="articlehref" lay-verify="required"
-						placeholder="请输入" autocomplete="off" class="layui-input" value="javascript:;"/>
+						placeholder="请输入" autocomplete="off" class="layui-input" value="http://www.lihang.xyz"/>
 				</div>
 			    </div>
 			  </div>
@@ -153,8 +153,6 @@
 				    <script id="content" name="articlecontent" type="text/plain" style="height: 500px;"></script>
 			    </div>
 			  </div>
-
-			  
 		</form>
 		  <a class="layui-btn" href="javascript:save();">保存</a>
 	</div>

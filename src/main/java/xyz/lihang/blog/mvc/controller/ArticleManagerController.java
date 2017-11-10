@@ -85,7 +85,7 @@ public class ArticleManagerController extends BaseController{
 		}
 		return null;
 	}
-	
+
 	@RenderJsonInvok
 	@RequestMapping(value="/add.action" )
 	@ResponseBody
@@ -126,11 +126,7 @@ public class ArticleManagerController extends BaseController{
 		articleManagerService.articleSettingTopDefault(id);
 		return RenderJson.Instance().defaultSuccessMessage().SUCCESS() ;
 	}
-	
-	
-	
-	
-	
+
 	//Label管理
 	
 	@RequestMapping(value="/label/index.action" )

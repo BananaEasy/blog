@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import xyz.lihang.blog.annotation.RenderJsonInvok;
+import xyz.lihang.blog.mvc.exception.MyException;
 import xyz.lihang.blog.tool.utils.FileUtils;
 import xyz.lihang.blog.tool.utils.PathUtils;
 import xyz.lihang.blog.tool.utils.RenderJson;
@@ -50,7 +51,7 @@ public class FileUploadController extends BaseController {
 			//是否在白名单
 			String suffix  = FileUtils.parseSuffix(file.getOriginalFilename());
 			if(!FileUtils.isWhiteList(suffix, images)){
-				throw new RuntimeException("文件后缀不是白名单中" + file.getOriginalFilename());
+				throw new MyException("文件后缀不是白名单中" + file.getOriginalFilename());
 			}
 			String fileName = uploadPath + UUID.randomUUID().toString() +suffix;
 		    String path= PathUtils.getWebRootPath() +  fileName;

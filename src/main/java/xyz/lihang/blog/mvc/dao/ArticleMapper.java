@@ -1,9 +1,7 @@
 package xyz.lihang.blog.mvc.dao;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
-
 import xyz.lihang.blog.model.ArticleMonths;
 import xyz.lihang.blog.mvc.entity.Article;
 import xyz.lihang.blog.mvc.entityexample.ArticleExample;

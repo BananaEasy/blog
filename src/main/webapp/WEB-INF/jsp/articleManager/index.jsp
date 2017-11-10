@@ -103,7 +103,7 @@
 						formatter : function(value, row, index) {
 							return "<a href='javascript:_articleManager_index.deleteArticle("+row.id+");'> 删除</a> "
 									+"<a href='javascript:_articleManager_index.updateArticle("+row.id+");'> 修改</a>"
-									+"<a href='/"+row.id+".html' target='_blank'> 查看</a>"
+									+"<a href='/article/"+row.id+"' target='_blank'> 查看</a>"
 									;
 						}
 					},

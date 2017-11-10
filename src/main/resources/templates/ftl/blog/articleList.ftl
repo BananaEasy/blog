@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>小航博客-主页</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<#include "common/seo.ftl">
+    <title>小航博客-优质的个人博客</title>
 </head>
 <#include "common/basejs.ftl">
 <body>
@@ -29,8 +30,8 @@
 								<table>
 									<tr>
 										<td class="hidden-xs">作者:${articleModel.articleusername !"未知"}</td>
-										<td>时间:${articleModel.createtime ?string("yyyy年MM月dd")}</td>
-										<td>浏览次数:${articleModel.count!"0" }</td>
+										<td>时间:${articleModel.createtime ?string("yyyy-MM-dd")}</td>
+										<td>点击:${articleModel.count!"0" }</td>
 									</tr>
 								</table>
 							</div>

@@ -43,7 +43,7 @@ public class AccessRecordQuartz {
         return queue.poll();
     }
 
-    @Scheduled(cron = "0/1 * * * * ? ")
+    @Scheduled(cron = "0/5 * * * * ? ")
     public void startSaveAccessRecord(){
         try{
             if(queue.size() > 0){

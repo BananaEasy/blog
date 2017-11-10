@@ -16,7 +16,7 @@
 			<form  class="navbar-form navbar-right blog-banner-form" action="/search" method="post" role="search">
 				<div class="form-group">
 					<label class="sr-only"></label>
-					<input type="text" name="search" class="form-control" placeholder="关键字">
+					<input type="text" name="searchStr" class="form-control" placeholder="关键字">
 				</div>
 				<button type="submit" class="btn btn-default">搜索</button>
 			</form>

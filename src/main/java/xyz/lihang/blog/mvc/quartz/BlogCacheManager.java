@@ -6,9 +6,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import xyz.lihang.blog.model.Situation;
 import xyz.lihang.blog.mvc.dao.AccessRecordMapper;
 import xyz.lihang.blog.mvc.service.IFrendLinkService;
+import xyz.lihang.blog.mvc.service.impl.ArticleManagerService;
 import xyz.lihang.blog.mvc.service.impl.MessageHandle;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
@@ -21,7 +24,7 @@ import freemarker.template.TemplateModelException;
 
 
 @Component
-public class FreemakerCache{
+public class BlogCacheManager {
 
 
 	private FreeMarkerConfigurer freeMarkerConfigurer;
@@ -30,33 +33,30 @@ public class FreemakerCache{
 	
 	@Resource
 	private ISystemManagerService systemManagerService;
-	
 	@Resource
 	private IArticleService articleService;
-
 	@Resource
 	private AccessRecordMapper accessRecordMapper;
-
 	@Resource
 	private MessageHandle messageHandle;
-
 	@Resource
 	private ILabelService labelService;
-
 	@Resource
 	private IFrendLinkService frendLinkService;
 
-	
 	@Autowired
 	public void setFreeMarkerConfigurer(FreeMarkerConfigurer freeMarkerConfigurer) {
 		this.freeMarkerConfigurer = freeMarkerConfigurer;
-		this.refresh();
+		this.refreshFreemakerCache();
 	}
 
 	/**
-	 * 刷新缓存
+	 * 刷新Freemaker缓存 和 Redis 缓存
 	 */
-	public void refresh(){
+	@Caching(evict = {
+			@CacheEvict(cacheNames= ArticleManagerService.ArticleListCacheName, allEntries=true),
+			@CacheEvict(cacheNames=ArticleManagerService.ArticleBeanCacheName, allEntries=true ) })
+	public void refreshFreemakerCache(){
 		try {
 			this.menu().rightItems();
 			freeMarkerConfigurer.getConfiguration().setSharedVaribles(cache);
@@ -65,12 +65,13 @@ public class FreemakerCache{
 			e.printStackTrace();
 		}
 	}
+
 	
 	/**
 	 * 页面右边的条目
 	 * @return
 	 */
-	private FreemakerCache rightItems (){
+	private BlogCacheManager rightItems (){
 		//获取热门文章
 		cache.put("hotArticleList", articleService.getByHot());
 		
@@ -92,16 +93,14 @@ public class FreemakerCache{
 
 		//访问记录
 		Situation situation = new Situation(articleCount,messageCount,accessCount);
-
 		cache.put("situation",situation);
-
 		return this;
 	}
 	
 	/**
 	 * 菜单栏
 	 */
-	private FreemakerCache menu(){
+	private BlogCacheManager menu(){
 		cache.put("menuModelList",systemManagerService.getMenuList());
 		return this;
 	}

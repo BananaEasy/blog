@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -20,6 +21,7 @@ import javax.servlet.ServletContextListener;
 @MapperScan("xyz.lihang.blog.mvc.dao")
 @EnableScheduling //定时任务
 @EnableTransactionManagement    //事务
+@EnableCaching //缓存
 public class BlogApplication extends SpringBootServletInitializer {
 
 

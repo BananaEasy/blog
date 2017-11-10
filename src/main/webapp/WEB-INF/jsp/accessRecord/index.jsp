@@ -14,20 +14,7 @@
     var _accessRecord_Js = {
         lastEditorIndex : null,
         tableLoad : function () {
-            var _columns = [ [ {
-                field : 'id',
-                title : 'ID',
-                width : 150
-            },{
-                field : 'starttime',
-                title : '开始时间',
-                width : 150
-            },{
-                field : 'endtime',
-                title : '结束时间',
-                width : 150,
-
-            }, {
+            var _columns = [ [  {
                 field : 'useragent',
                 title : 'useragent',
                 width : 100,
@@ -40,11 +27,6 @@
             }, {
                 field : 'method',
                 title : 'method',
-                width : 100,
-
-            }, {
-                field : 'referer',
-                title : 'referer',
                 width : 100,
 
             }, {
@@ -67,6 +49,25 @@
                 title : 'host',
                 width : 100,
 
+            },{
+                field : 'starttime',
+                title : '开始时间',
+                width : 150
+            },{
+                field : 'endtime',
+                title : '结束时间',
+                width : 150,
+
+            }, {
+                field : 'acceptlanguage',
+                title : 'acceptlanguage',
+                width : 100,
+
+            }, {
+                field : 'referer',
+                title : 'referer',
+                width : 100,
+
             }, {
                 field : 'xrequestedwith',
                 title : 'xrequestedwith',
@@ -75,11 +76,6 @@
             }, {
                 field : 'userid',
                 title : 'userid',
-                width : 100,
-
-            }, {
-                field : 'requestpath',
-                title : 'acceptlanguage',
                 width : 100,
 
             }

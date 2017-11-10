@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 @Component
 public class FreemakerCacheQuartz {
     @Resource
-    private FreemakerCache freemakerCache;
+    private BlogCacheManager blogCacheManager;
 
 
     Logger log = LoggerFactory.getLogger(((getClass())));
@@ -29,7 +29,7 @@ public class FreemakerCacheQuartz {
     public void refreshCache()  {
         try {
             log.info("刷新Freemarker共享缓存" );
-            freemakerCache.refresh();
+            blogCacheManager.refreshFreemakerCache();
         }catch (Exception e){
             log.error(e.getMessage());
         }

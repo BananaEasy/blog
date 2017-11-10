@@ -14,7 +14,7 @@ public class FileUtils {
 		if(StringUtils.isNotBlank(fileName)){
 			int index = fileName.lastIndexOf('.');
 			if(index != -1){
-				return fileName.substring(index);
+				return fileName.substring(index).toLowerCase();
 			}
 		}
 		return "";

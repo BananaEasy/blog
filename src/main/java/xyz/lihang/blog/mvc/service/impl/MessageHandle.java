@@ -1,24 +1,23 @@
 package xyz.lihang.blog.mvc.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import xyz.lihang.blog.model.Message;
 import xyz.lihang.blog.mvc.exception.MyException;
 import xyz.lihang.blog.mvc.service.RedisBaseService;
 import xyz.lihang.blog.tool.ToolString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by LiHang on 2017/8/20.
  */
-@Service
+@Component
 public class MessageHandle extends RedisBaseService<Message> {
 
-    private Logger log = LoggerFactory.getLogger(((getClass())));
+    private Logger log = LoggerFactory.getLogger(getClass());
 
     private String listKey() {
         return className + "_List";

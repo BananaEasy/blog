@@ -22,12 +22,14 @@ public class ArticleManagerService extends BaseService<Article> implements
 		IArticleManagerService {
 	
 	protected String defaultOrderBy ="TOP_ DESC,CREATETIME DESC" ;
-	
-	protected ArticleMapper articleMapper;
+
 	@Resource
 	protected CategoryMapper categoryMapper;
 	@Resource
 	protected LabelMapper labelMapper;
+
+	protected ArticleMapper articleMapper;
+
 	
 	@Resource
 	public void setArticleMapper(ArticleMapper articleMapper) {
@@ -37,19 +39,18 @@ public class ArticleManagerService extends BaseService<Article> implements
 	
 	@Override
 	@Transactional
-	public int insert(Article t) {
-		t.setCreatetime(new Date());
-		t.setVersion(0);
-		t.setTop(0);
-		return super.insert(t);
+	public int insert(Article article) {
+		article.setCreatetime(new Date());
+		article.setVersion(0);
+		article.setTop(0);
+		return super.insert(article);
 	}
 	
 	@Override
 	@Transactional
-	public int updateByPrimaryKey(Article t) {
-		Article temp = selectByPrimaryKey(t.getId());
-		temp = (Article) BeanUpdateUtils.objClone(temp, t);
-		LogFactory.getLog(getClass()).info("???" + temp.getArticlecontent());
+	public int updateByPrimaryKey(Article article) {
+		Article temp = selectByPrimaryKey(article.getId());
+		temp = (Article) BeanUpdateUtils.objClone(temp, article);
 		temp.setVersion(temp.getVersion() + 1);
 		return articleMapper.updateByPrimaryKeyWithBLOBs(temp);
 	}
@@ -60,11 +61,7 @@ public class ArticleManagerService extends BaseService<Article> implements
 		ArticleExample ae = new ArticleExample();
 		ae.setOrderByClause(defaultOrderBy);
 		List<Article> list= articleMapper.selectByExample(ae);
-		for(int i=0;i<list.size();i++){
-			loadCategory(list.get(i));
-			loadLabel(list.get(i));
-		}
-		return list;
+		return loadData(list);
 	}
 	
 	@Override
@@ -74,7 +71,7 @@ public class ArticleManagerService extends BaseService<Article> implements
 		}
 		return article;
 	}
-	
+
 	@Override
 	public Article loadLabel (Article article){
 		if(article != null && article.getLabelId()!= null){
@@ -82,8 +79,10 @@ public class ArticleManagerService extends BaseService<Article> implements
 		}
 		return article;
 	}
-	
-	
+
+
+
+
 	@Override
 	@Transactional
 	public int articleTop(Integer id) {
@@ -95,6 +94,16 @@ public class ArticleManagerService extends BaseService<Article> implements
 	public int articleSettingTopDefault(Integer id) {
 		Article a = selectByPrimaryKey(id);
 		a.setTop(0);
-		return updateByPrimaryKey(a);
+		a.setVersion(a.getVersion() + 1);
+		return articleMapper.updateByPrimaryKeyWithBLOBs(a);
 	}
+
+	protected List<Article>  loadData(List<Article> list) {
+		for(int i=0;i<list.size();i++){
+			loadCategory(list.get(i));
+			loadLabel(list.get(i));
+		}
+		return list;
+	}
+
 }

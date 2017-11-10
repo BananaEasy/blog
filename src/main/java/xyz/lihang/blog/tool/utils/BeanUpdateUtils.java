@@ -2,6 +2,7 @@ package xyz.lihang.blog.tool.utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 import xyz.lihang.blog.annotation.DataFinal;
 
@@ -36,6 +37,9 @@ public class BeanUpdateUtils {
 		for(Field ff : declaredFields){
 			//关闭安全检查
 			ff.setAccessible(true);
+			if(Modifier.isStatic(ff.getModifiers())){
+				continue;
+			}
 			Annotation[] annotations = ff.getDeclaredAnnotations();
 			//System.out.println(Arrays.toString(annotations));
 			//是否使用了DataFinal的注解

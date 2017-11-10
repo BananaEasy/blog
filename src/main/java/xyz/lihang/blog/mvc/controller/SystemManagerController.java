@@ -2,8 +2,12 @@ package xyz.lihang.blog.mvc.controller;
 
 import javax.annotation.Resource;
 
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import xyz.lihang.blog.annotation.RenderJsonInvok;
-import xyz.lihang.blog.mvc.quartz.FreemakerCache;
+import xyz.lihang.blog.mvc.quartz.ArticleLuceneQuartz;
+import xyz.lihang.blog.mvc.quartz.BlogCacheManager;
 import xyz.lihang.blog.mvc.quartz.SEOQuartz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import xyz.lihang.blog.mvc.entity.Category;
 import xyz.lihang.blog.mvc.service.ISystemManagerService;
+import xyz.lihang.blog.mvc.service.impl.ArticleManagerService;
 import xyz.lihang.blog.tool.utils.EasyUIData;
 import xyz.lihang.blog.tool.utils.RenderJson;
 
@@ -30,8 +35,6 @@ public class SystemManagerController extends BaseController{
 	private static final Logger log = LoggerFactory.getLogger(SystemManagerController.class);
 
 
-
-
 	@Resource
 	private ISystemManagerService systemManagerService;
 
@@ -39,7 +42,10 @@ public class SystemManagerController extends BaseController{
 	private SEOQuartz seoQuartz;
 
 	@Resource
-	private FreemakerCache freemakerCache;
+	private ArticleLuceneQuartz articleLuceneQuartz;
+
+	@Resource
+	private BlogCacheManager blogCacheManager;
 
 	@RequestMapping(value="/index.action" ,method={RequestMethod.GET})
 	public String index(){
@@ -79,10 +85,11 @@ public class SystemManagerController extends BaseController{
 	}
 
 	@RenderJsonInvok
-	@RequestMapping(value="/refresh.action")
+	@RequestMapping(value="/refreshFreemakerCache.action")
 	@ResponseBody
 	public RenderJson refresh(){
-		freemakerCache.refresh();
+		blogCacheManager.refreshFreemakerCache();
+		articleLuceneQuartz.createIndex();
 		return RenderJson.defaultSuccess();
 	}
 

@@ -13,7 +13,5 @@ public interface LabelMapper extends  BaseMapper<Label>{
 
     List<Label> selectByExample(LabelExample example);
 
-
     int updateByExample(@Param("record") Label record, @Param("example") LabelExample example);
-
 }

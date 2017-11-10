@@ -2,6 +2,7 @@ package xyz.lihang.blog.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import xyz.lihang.blog.mvc.quartz.AccessRecordQuartz;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,9 @@ import java.util.regex.Pattern;
 
 /**
  * Created by LiHang on 2017/8/6.
+ * 为了过度百度建立索引的问题
  */
+@Component
 public class HtmlFilter implements Filter {
 
     static final Logger log = LoggerFactory.getLogger(HtmlFilter.class);
@@ -23,32 +26,12 @@ public class HtmlFilter implements Filter {
 
 
     private void urlrewriteRegister(){
-
         urlrewrite = new LinkedHashMap<>();
-
-        //搜索
-        urlrewrite.put("^/s/search\\.html$","/item.action");
-
-        //按指定条件
-        //匹配按标签,类别
-        urlrewrite.put("^/c/([a-zA-Z]+?)/([a-zA-Z0-9\\-]+)\\.html$","/item.action?$1=$2");
-
+        ///c/cid/8.html
+        urlrewrite.put("^/c/cid/([0-9]+)\\.html$","/category/$1");
         //匹配文章显示
         //显示指定ID文章
-        urlrewrite.put("^/([0-9]+)\\.html$","/article.action?id=$1");
-
-        //匹配分页
-        //对列表文章进行分页
-        urlrewrite.put("^/([a-zA-Z]+)-([0-9]+)\\.html$","/$1.action?p=$2");
-
-
-        //匹配留言
-        urlrewrite.put("^/message/([a-zA-Z]+)\\.html$","/message/$1.action");
-
-
-        //匹配所有的 /*.html
-        urlrewrite.put("^/([a-zA-Z]+?)\\.html$","/$1.action");
-
+        urlrewrite.put("^/([0-9]+)\\.html$","/article/$1");
     }
 
     @Override

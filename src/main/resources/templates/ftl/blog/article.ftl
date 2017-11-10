@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <#include "common/seo.ftl">
     <title>${article.index.articletitle!""}</title>
 </head>
 <#include "common/basejs.ftl">
@@ -29,8 +30,8 @@
                         <table>
                             <tr>
                                 <td class="hidden-xs">作者:${article.index.articleusername !"未知"}</td>
-                                <td>时间:${article.index.createtime ?string("yyyy年MM月dd")}</td>
-                                <td>浏览次数:${article.index.count!"0"}</td>
+                                <td>时间:${article.index.createtime ?string("yyyy-MM-dd")}</td>
+                                <td>点击:${article.index.count!"0"}</td>
                             </tr>
                         </table>
                     </div>

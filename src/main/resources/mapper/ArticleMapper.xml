@@ -484,10 +484,8 @@
     <if test="distinct">
       distinct
     </if>
-    
     ID, LABEL_ID, CATEGORY_ID, ARTICLEUSERNAME, CREATETIME, ARTICLETITLE, ARTICLEHREF, ARTICLEPROMPT,
     ARTICLEHREFTITLE, COUNT_, TOP_, ISORIGINAL_, ARTICLETITLEIMAGEPATH1, ARTICLETITLEIMAGEPATH2
-    
     from article_
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -560,7 +558,5 @@
 		months;
 	]]>		
   </select>
-
-
   
 </mapper>

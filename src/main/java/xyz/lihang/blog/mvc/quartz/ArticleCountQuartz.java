@@ -40,25 +40,24 @@ public class ArticleCountQuartz {
         return articleIds.poll();
     }
 
-    @Scheduled(cron = "0/1 * * * * ? ")//每隔1s执行一次
+    @Scheduled(cron = "0/5 * * * * ? ")//每隔1s执行一次
     //每次处理五个任务
     public void addCount (){
-        try{
-            if( articleIds.size() > 0){
-                for(int i=0;i<5;i++){
-                    Integer aarticleId = getAarticleId();
-                    if( null != aarticleId ){
-                        log.info("文章浏览次数+1 ----- ID:" + aarticleId );
+        if( articleIds.size() > 0){
+            for(int i=0;i<5;i++){
+                Integer aarticleId = getAarticleId();
+                if( null != aarticleId ){
+                    try{
                         articleMapper.addArticleCount(aarticleId);
-                    }else {
-                        break;
+                        log.info("文章浏览次数+1 ----- ID:" + aarticleId );
+                    }catch (Exception e){
+                        log.error("文章Id不存在,...");
                     }
+                }else {
+                    break;
                 }
             }
-        }catch (Exception e){
-            log.error(e.getMessage());
         }
-
     }
 
 }

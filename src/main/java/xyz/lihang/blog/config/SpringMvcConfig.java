@@ -6,6 +6,7 @@ import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletCont
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -21,6 +22,7 @@ import xyz.lihang.blog.filter.AccessRecordFilter;
 import xyz.lihang.blog.filter.HtmlFilter;
 import xyz.lihang.blog.filter.ManagerFilter;
 
+import javax.servlet.MultipartConfigElement;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
@@ -33,6 +35,21 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("forward:/index");
         registry.addViewController("/admin/").setViewName("forward:/admin/index.action");
     }
+
+    //文件上传
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        // 设置文件大小限制 ,超出设置页面会抛出异常信息，
+        // 这样在文件上传的地方就需要进行异常信息的处理了;
+        factory.setMaxFileSize("10MB"); // KB,MB
+        /// 设置总上传数据总大小
+        factory.setMaxRequestSize("512KB");
+        // Sets the directory location where files will be stored.
+        // factory.setLocation("路径地址");
+        return factory.createMultipartConfig();
+    }
+
 
     //jsp视图解析
     @Bean
@@ -78,6 +95,16 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
         return filterRegistrationBean;
     }
 
+    //Html后缀  过度百度索引问题
+    @Bean
+    public FilterRegistrationBean HtmlFilter(HtmlFilter htmlFilter){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(htmlFilter);
+        filterRegistrationBean.addUrlPatterns("*.html");
+        filterRegistrationBean.setOrder(2);
+        return filterRegistrationBean;
+    }
+
+
     //json
     @Bean(name = "httpMessageConverter")
     public HttpMessageConverter MappingJackson2HttpMessageConverter(){
@@ -95,6 +122,10 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
         requestMappingHandlerAdapter.setMessageConverters(Arrays.asList(httpMessageConverter));
         return requestMappingHandlerAdapter;
     }
+
+
+
+
 
 
 }

@@ -17,7 +17,7 @@ _systemManager_Js = {
             _base_Js.baseAjax ("重新生成siteMap","/admin/systemManager/sitemap.action",null,null , null);
 		},
 	    refresh:function () {
-			_base_Js.baseAjax ("是否刷新缓存","/admin/systemManager/refresh.action",null,null , null);
+			_base_Js.baseAjax ("是否刷新缓存","/admin/systemManager/refreshFreemakerCache.action",null,null , null);
 		},
 		defaultCategory:
 			{"id":null,"rank":null,"link":null,"name":null,"parentid":null,"ico":null,"record":null,"title":null}
@@ -52,10 +52,7 @@ _systemManager_Js = {
 						{field:'id',title:'ID',width:80},
 						{field:'name',title:'类别名称',width:200, editor:'text'},
 						{field:'link',title:'类别链接',width:200, editor:'text',formatter: function(value,row,index){
-							if(row.link.indexOf("javascript") != -1){
 								return row.link;
-							}
-							return "/category/" + row.id ;
 						}},
 						{field:'rank',title:'类别等级',width:80, editor:'text'},
 					   /*  {field:'parentid',title:'父类别',width:100, editor:'text'},   */

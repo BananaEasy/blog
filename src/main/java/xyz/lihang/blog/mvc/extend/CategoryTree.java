@@ -5,7 +5,7 @@ package xyz.lihang.blog.mvc.extend;
  */
 public class CategoryTree {
 	
-	 private Integer _parentId;
+	private Integer _parentId;
 
 	public Integer get_parentId() {
 		return _parentId;
