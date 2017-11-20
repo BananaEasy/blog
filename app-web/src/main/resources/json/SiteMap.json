@@ -1,0 +1,5 @@
+{
+  "basePrefix":"http://www.lihang.xyz/",
+  "mainUrl":"http://www.lihang.xyz/index",
+  "contains":["article","html","index"]
+}

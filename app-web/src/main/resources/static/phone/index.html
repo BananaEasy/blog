@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>小航博客</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" href="/ref/vue/mint-ui/style.css">
+    <script src="/ref/vue/vue.js"></script>
+    <script src="/ref/vue/mint-ui/index.js"></script>
+    <script src="/ref/iscroll/iscroll.js"></script>
+    <script src="/ref/vue/vue-lazyload.js"></script>
+    <script src="/ref/jquery/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/ref/layui/css/layui.css">
+    <script type="text/javascript" src="/ref/layui/lay/dest/layui.all.js"></script>
+    <script src="/ref/xss/xss.js"></script>
+    <link href="/ref/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<style lang="css">
+    body{
+        font-family: 'microsoft yahei';
+    }
+    .page-header-main{
+        margin-top: 50px;
+        min-height: 120vh;
+        margin-bottom: 50px;
+    }
+    .page-swipe {
+        height: 200px;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+    .page-swipe h1{
+        position: relative;
+        width: 100%;
+        height: 20px;
+        top:-40px;
+        z-index: 500;
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-left: 20px;
+        margin-right: 20px;
+        color: #FF5722;
+    }
+    .page-swipe img{
+        width: 100%;
+        height:200px;
+    }
+    .page-wrapper{
+        overflow: hidden;
+        height: 50px;
+    }
+    .page-scroller{
+        width: 5000px;
+        z-index: 1;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-text-size-adjust: none;
+        -moz-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+        -o-text-size-adjust: none;
+        text-size-adjust: none;
+    }
+    .article-list{
+        width: 100%;
+    }
+    .article-list-item {
+        height:20vh;
+        width: 100%;
+        background-color: #F0F0F0;
+    }
+    .article-list-img{
+        float: left;
+        margin-top: 1vh;
+        width: 40%;
+        height:18vh;
+        border-radius: 5px;
+        margin-left: 1%;
+        overflow: hidden;
+    }
+    .article-list-img img{
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .article-list-right h1{
+        margin-top: 1vh;
+        height: 9vh;
+        word-break: break-all;
+        margin-bottom: 1vh;
+        font: 700 18px / 22px normal;
+        color: #393D49;
+        overflow: hidden;
+    }
+    .article-list-right p{
+        height: 3vh;
+        width: 100%;
+        line-height: 3vh;
+        font-size: 0.8em;
+        color: #01AAED;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .article-list-right{
+        float: right;
+        width: 55%;
+        height:18vh;
+        padding-right: 5px;
+        overflow: hidden;
+    }
+    .article-list-state{
+        height:4vh;
+        width: 100%;
+        font-size: 12px;
+    }
+    .article-list-state span{
+        line-height: 3vh;
+        color: #393D49;
+    }
+    .page-loading{
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+    }
+    .page-loading div{
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+
+    .message-list{
+        width: 100%;
+        height: auto;
+        padding-top: 20px;
+    }
+    .message-list-item{
+        height:auto;
+        margin-bottom: 15px;
+        width: 100%;
+        background-color: #F0F0F0;
+        border-radius: 8px;
+        border: solid 2px #d2d2d2;
+    }
+    .message-list-item-head{
+        background-color: #eeeeee;
+        padding-left: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 100%;
+        text-align: left;
+        border-bottom: solid 1px #d2d2d2;
+    }
+    .message-list-item-content{
+        padding: 3%;
+        background-color: #FFFFFF;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+        min-height: 100px;
+    }
+    .mint-popup-1 {
+        width: 90%;
+        padding: 20px;
+        transform: translate(-50%, 0);
+    }
+    .layui-field-box p{
+        text-align: center;
+        line-height: 30px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .layui-field-box p a{
+        color: #01AAED;
+    }
+
+</style>
+<body>
+<div id="app">
+    <mt-header fixed title="小航博客" >
+        <mt-button  v-show="selected == '文章'" slot="right" ref="menu_button" @click="popup_Visible = true"><i class="fa fa-search fa-lg"></i> </mt-button>
+    </mt-header>
+    <mt-popup v-model="popup_Visible" popup-transition="popup-fade" class="mint-popup-1"
+              :style="{ top: menu_buttonBottom  + 'px'  }">
+        <mt-field  placeholder="搜索内容" style="padding-right:0px;" v-model="article.searchStr">
+            <mt-button @click="seachBtn" size="large" type="default" style="padding:4px;font-size:14px;width: 80px;">{{'搜 索 '}}
+                <i class="fa fa-search fa-lg"></i>
+            </mt-button>
+        </mt-field>
+    </mt-popup>
+    <div class="page-header-main">
+        <mt-tab-container class="page-tabbar-container" v-model="selected">
+            <mt-tab-container-item id="文章">
+                <div class="page-swipe">
+                    <mt-swipe :auto="4000">
+                        <mt-swipe-item  v-for="ar in article.headArticles" >
+                            <img v-lazy="ar.articletitleimagepath1" @click="toArticle(ar)"/>
+                            <h1>{{ar.articletitle}}</h1>
+                        </mt-swipe-item>
+                    </mt-swipe>
+                </div>
+                <div class="page-wrapper" id="page-wrapper">
+                    <div class="page-scroller">
+                        <mt-button v-for="label in article.labels" size="small"
+                                   style="display:inline;margin-top:3px;margin-left: 5px;margin-bottom: 3px;"
+                                   :style="{backgroundColor: label.id === article.selectLabelId ? '#5FB878' : '#f2f2f2'}"
+                                   @click="labelfn(label)"
+                        >{{label.name}}
+                        </mt-button>
+                    </div>
+                </div>
+                <div class="article-list" v-infinite-scroll="articlePageLoad"
+                      infinite-scroll-disabled="article.pageloading"
+                      infinite-scroll-distance="30">
+                    <div class="article-list-item layui-anim layui-anim-scale"
+                         v-for="article in article.articles"
+                         @click="toArticle(article)">
+                        <div class="article-list-img">
+                            <img v-lazy="article.articletitleimagepath1"></img>
+                        </div>
+                        <div class="article-list-right">
+                            <h1  v-html="article.articletitle"></h1>
+                            <p v-html="article.articleprompt"></p>
+                            <div class="article-list-state">
+                                <span>{{article.categoryName}}</span>
+                                <span> | </span>
+                                <span>{{new Date( article.createtime ).format("yy-MM-dd")}}</span>
+                                <span> | </span>
+                                <span>{{article.articleusername}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p  class="page-loading" v-show="article.pageEnd || article.pageloading">
+                        <mt-spinner  v-show="!article.pageEnd" type="fading-circle"></mt-spinner>
+                        {{article.pageEnd ? '没有更多了':'加载中...'}}
+                    </p>
+                </div>
+            </mt-tab-container-item>
+            <mt-tab-container-item id="留言">
+                <mt-field label="用户名" placeholder="请输入用户名" :state="message.state.name"
+                          v-model="message.message.name"></mt-field>
+                <mt-field label="邮箱" placeholder="请输入邮箱" :state="message.state.email" type="email"
+                          v-model="message.message.email"></mt-field>
+                <mt-field label="留言内容" placeholder="" :state="message.state.content" type="textarea" rows="4"
+                          v-model="message.message.content" ></mt-field>
+                <mt-button plain size="large" type="primary" @click="messageAdd">提交</mt-button>
+
+                <div class="message-list"
+                     v-infinite-scroll="messagePageload"
+                     infinite-scroll-disabled="message.pageloading"
+                     infinite-scroll-distance="30"
+                >
+                    <div class="message-list-item layui-anim layui-anim-up"  v-for="mess in message.messages">
+                        <div class="message-list-item-head">
+                            <h2 style="font-size: 1.2em;font-weight: bold">{{mess.name}}</h2>
+                            <p style="margin-top: 5px;">{{new Date( mess.date ).format("yy-MM-dd mm:ss")}}</p>
+                        </div>
+                        <div class="message-list-item-content" v-html="mess.content">
+                        </div>
+                    </div>
+                    <p  class="page-loading" v-show="message.pageEnd || message.pageloading">
+                        <mt-spinner  v-show="!message.pageEnd" type="fading-circle"></mt-spinner>
+                        {{message.pageEnd ? '没有更多了':'加载中...'}}
+                    </p>
+                </div>
+            </mt-tab-container-item>
+            <mt-tab-container-item id="关于">
+                <fieldset class="layui-elem-field layui-field-title">
+                    <legend>公众号</legend>
+                    <div class="layui-field-box" style="text-align:center">
+                        <img style="width: 80%;" src="/images/weixin.jpg"/>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field layui-field-title">
+                    <legend>其他</legend>
+                    <div class="layui-field-box">
+                       <p><a href="https://github.com/wawa2222">GitHub</a></p>
+                       <p><a href="https://jq.qq.com/?_wv=1027&k=4EPZ3Xr">小航博客交流群</a></p>
+                       <p><a href="/time.html">博客日志</a></p>
+                    </div>
+                </fieldset>
+
+                <fieldset class="layui-elem-field layui-field-title">
+                    <legend>关于</legend>
+                    <div class="layui-field-box">
+                        <p style="font-size:13px;font-weight:normal;">2017-11-20</p>
+                        <p style="font-size:13px;font-weight:normal;">蜀ICP备17028272号-1</p>
+                    </div>
+                </fieldset>
+            </mt-tab-container-item>
+        </mt-tab-container>
+    </div>
+    <mt-tabbar v-model="selected" fixed>
+        <mt-tab-item id="文章">
+            <i slot="icon" class="fa fa-heart-o fa-2x"></i>
+            {{'文 章'}}
+        </mt-tab-item>
+        <mt-tab-item id="留言">
+            <i slot="icon" class="fa fa-comment-o fa-2x"></i>
+            {{'留   言'}}
+        </mt-tab-item>
+        <mt-tab-item id="关于">
+            <i slot="icon" class="fa fa-smile-o fa-2x"></i>
+            {{'关 于'}}
+        </mt-tab-item>
+    </mt-tabbar>
+</div>
+</body>
+
+
+<script>
+
+    Date.prototype.format = function(fmt) {
+        var o = {
+            "M+" : this.getMonth()+1,                 //月份
+            "d+" : this.getDate(),                    //日
+            "h+" : this.getHours(),                   //小时
+            "m+" : this.getMinutes(),                 //分
+            "s+" : this.getSeconds(),                 //秒
+            "q+" : Math.floor((this.getMonth()+3)/3), //季度
+            "S"  : this.getMilliseconds()             //毫秒
+        };
+        if(/(y+)/.test(fmt)) {
+            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o) {
+            if(new RegExp("("+ k +")").test(fmt)){
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+            }
+        }
+        return fmt;
+    }
+
+    $(function () {
+        Vue.use(VueLazyload, {
+            preLoad: 1.3,
+            error: '/images/404.png',
+            loading: '/images/loading3.gif',
+            attempt: 1,
+            lazyComponent : true,
+        });
+        const app = new Vue({
+            el: '#app',
+            data:{
+                menu_buttonBottom:0,
+                menu_buttonLeft:0,
+                popup_Visible:false,
+                selected: '文章',
+                article:{
+                    searchStr:"",
+                    isSearchFlag : false,
+                    labels:[{name:'全部',id:null}],
+                    headArticles:[],
+                    articles:[],
+                    pageloading:false,
+                    pageloadFlag :null,
+                    pageEnd:false,
+                    selectLabelId:null,
+                    p:1,
+                },
+                message:{
+                    messages:[],
+                    p:1,
+                    pageloading:false,
+                    pageloadFlag:null,
+                    pageEnd:false,
+                    message:{
+                        name:"",
+                        email:"",
+                        content:""
+                    },
+                    state:{
+                        name:'error',
+                        email:'error',
+                        content:'error',
+                    }
+                }
+            },
+            watch: {
+                message_message_name: function (val) {
+                    this.messageValidate('name',val);
+                },
+                message_message_email: function (val) {
+                    this.messageValidate('email',val);
+                },
+                message_message_content:function (val) {
+                    this.messageValidate('content',val);
+                },
+                selected:function (val) {
+                    //
+                    if(val == "文章" && this.article.articles.length == 0){
+                        this.articlePageLoad();
+                    }else if(val == "留言" && this.message.messages.length == 0){
+                        this.messagePageload();
+                    }
+                }
+            },
+            computed: {
+                message_message_name: function () {
+                    return this.message.message.name;
+                },
+                message_message_email: function () {
+                    return this.message.message.email;
+                },
+                message_message_content:function () {
+                    return this.message.message.content;
+                },
+            },
+            methods:{
+                messageValidate:function(name,$value){
+                    var result = "error";
+                    if($value!=""){
+                        if(name == 'name'){
+                            var reg = new RegExp("(([\u4E00-\u9FA5]{2,7})|([a-zA-Z]{3,10}))");
+                            if(reg.test($value)){
+                                result = "success";
+                            }
+                        }else if(name == "email"){
+                            var reg = new RegExp("^[\\w-]+(\\.[\\w-]+)*@[\\w-]+(\\.[\\w-]+)+$");
+                            if(reg.test($value)){
+                                result = "success";
+                            }
+                        }else  if(name == "content"){
+                            if($value.length > 0){
+                                result = "success";
+                            }
+                        }
+                    }
+                    this.message.state[name] = result;
+                    return result;
+                },
+                toArticle :function (article) {
+                    var url = "/article/" + article.id;
+                    window.open(url);
+                },
+                loadLabel:function () {
+                    var self = this;
+                    $.getJSON("/phone/label",function (data) {
+                        for(var i=0;i<data.length;i++){
+                            self.article.labels.push(data[i]);
+                        }
+                        new IScroll('#page-wrapper', { scrollX: true, scrollY: false, mouseWheel: true });
+                        $(".page-scroller").css("width",data.length * 300 + "px");
+                    });
+                },
+                labelfn:function (label) {
+                    var self = this;
+                    if(self.article.pageloading == false){
+                        if(self.article.pageloadFlag){
+                            clearTimeout(self.article.pageloadFlag);
+                        }
+                        self.article.articles = [];
+                        self.article.pageloading = true;
+                        self.article.isSearchFlag = false;
+                        self.article.selectLabelId = label.id;
+                        self.article.p = 1;
+                        self.article.pageEnd = false;
+                        self.article.pageloadFlag = setTimeout(function () {
+                            var $data = {p: 1, labelId: label.id};
+                            $.ajax({
+                                url : "/phone/list",
+                                data:$data,
+                                cache : false,
+                                async : false,
+                                type : "GET",
+                                dataType : 'json',
+                                success : function (data) {
+                                    if(data.length == 0){
+                                        self.article.pageEnd = true;
+                                    }else{
+                                        self.article.p++;
+                                        self.article.articles = data;
+                                    }
+                                    self.article.pageloading = false;
+                                }
+                            });
+                        },1000);
+                    }
+
+                },
+                seachBtn:function () {
+                    if(this.article.searchStr.length == 0){
+                        Vue.$toast({
+                            message: '请输入搜索内容',
+                            iconClass: 'fa fa-close fa-5x'
+                        });
+                        return;
+                    }
+                    this.article.articles = [];
+                    this.article.pageEnd = false;
+                    this.article.isSearchFlag = true;
+                    this.article.p = 1;
+                    this.articlePageLoad();
+                    this.popup_Visible = false;
+                },
+                articlePageLoad:function() {
+                    console.log("pageloading:" + this.article.pageloading + "-------pageEnd:" + this.article.pageEnd)
+                    var self = this;
+                    if(self.selected == "文章" && self.article.pageEnd == false && self.article.pageloading == false){
+                        if(self.article.pageloadFlag){
+                            clearTimeout(self.article.pageloadFlag);
+                        }
+                        self.article.pageloading = true;
+                        self.article.pageloadFlag = setTimeout(function () {
+                            var $url = "/phone/list";
+                            var $method = "GET";
+                            var $data = {p:self.article.p};
+                            if(self.article.isSearchFlag == true){
+                                $url = "/phone/search";
+                                $data.searchStr = self.article.searchStr;
+                                $method = "POST";
+                            }else{
+                                $data.labelId =self.article.selectLabelId ;
+                            }
+                            console.log($url +"-----" + JSON.stringify($data) );
+                            $.ajax({
+                                url : $url,
+                                data:$data,
+                                cache : false,
+                                async : false,
+                                type : $method,
+                                dataType : 'json',
+                                success : function (data) {
+                                    if(data.length == 0){
+                                        self.article.pageEnd = true;
+                                    }else{
+                                        self.article.p++;
+                                        for(var i=0;i<data.length;i++){
+                                            self.article.articles.push(data[i]);
+                                        }
+                                    }
+                                    self.article.pageloading = false;
+                                }
+                            });
+                        },1000);
+                    }
+                },
+                //==================
+                messagePageload:function () {
+                    if(this.selected == "留言" && this.message.pageEnd == false && this.message.pageloading == false){
+                        var self = this;
+                        if(self.message.pageloadFlag){
+                            clearTimeout(self.message.pageloadFlag);
+                        }
+                        self.message.pageloading = true;
+                        self.message.pageloadFlag = setTimeout(function () {
+                            var $data = {p:self.message.p};
+                            $.ajax({
+                                url : "/message/commontList",
+                                data:$data,
+                                cache : false,
+                                async : false,
+                                type : "POST",
+                                dataType : 'json',
+                                success : function (data) {
+                                    if(data.status == "success"){
+                                        self.message.p++;
+                                        for(var i=0;i<data.list.length;i++){
+                                            data.list[i].content = filterXSS(data.list[i].content);
+                                            data.list[i].name = filterXSS(data.list[i].name);
+                                            self.message.messages.push(data.list[i]);
+                                        }
+                                    }else{
+                                        self.message.pageEnd = true;
+                                    }
+                                    self.message.pageloading = false;
+                                }
+                            });
+
+                        },1000);
+                    }
+                },
+                messageAdd:function () {
+                    if(this.message.state.name == 'error'){
+                        Vue.$toast({
+                            message: '请检查用户名输入',
+                            iconClass: 'fa fa-user-times fa-5x'
+                        });
+                        return;
+                    }
+                    if(this.message.state.email == 'error'){
+                        Vue.$toast({
+                            message: '请检查邮箱输入',
+                            iconClass: 'fa fa-meh-o fa-5x'
+                        });
+                        return;
+                    }
+                    if(this.message.state.content == 'error'){
+                        Vue.$toast({
+                            message: '请填写留言内容',
+                            iconClass: 'fa fa-close fa-5x'
+                        });
+                        return;
+                    }
+                    var $data = this.message.message;
+                    var self = this;
+                    $.post("/message/commont",$data,function (data) {
+                        if(data.status == "success"){
+                            Vue.$toast({
+                                message: data.message,
+                                iconClass: 'fa fa-check fa-5x'
+                            });
+                            data.obj.content = filterXSS(data.obj.content);
+                            data.obj.name = filterXSS(data.obj.name);
+                            self.message.messages.unshift(data.obj);
+                        }else{
+                            Vue.$toast({
+                                message: data.message,
+                                iconClass: 'fa fa-close fa-5x'
+                            });
+                        }
+                    },"json");
+                }
+            },
+            created: function () {
+                var self = this;
+                $.getJSON("/phone/headArticle",function (data) {
+                    self.article.headArticles = data;
+                    //构建
+                    self.loadLabel();
+                });
+            },
+            mounted: function () {
+                this.menu_buttonBottom = this.$refs.menu_button.$el.getBoundingClientRect().bottom;
+                this.menu_buttonLeft = this.$refs.menu_button.$el.getBoundingClientRect().left;
+            }
+        });
+    });
+</script>
+</html>
